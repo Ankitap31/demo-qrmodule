@@ -8,7 +8,6 @@ namespace Drupal\product_details\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use \Drupal\file\Entity\File;
 require_once DRUPAL_ROOT.'\vendor\pendalff\phpqrcode\qrlib.php';
-//use Drupal\pendalff\phpqrcode\qrlib;
 
 /**
  * Provides a 'QR code' block.
@@ -51,10 +50,7 @@ class QrcodeBlock extends BlockBase {
 		if (file_exists($qrimage) == 0) {
         QrcodeBlock::generateQrCodes($node_detail->get('field_purchase_link')->uri);
 		}
-		//include("C:/xampp/htdocs/drupal8/vendor/pendalff/phpqrcode/qrlib.php");
-		//QRcode::png($text, $qrpath);
-		//require_once 'C:\xampp\htdocs\drupal8\vendor\pendalff\phpqrcode\qrlib.php';
-		//\PHPQRCode\QRcode::png($node_detail->get('field_purchase_link')->uri);
+
 		$qrcode = file_create_url($qrimage);
     return array(
       '#type' => 'markup',
