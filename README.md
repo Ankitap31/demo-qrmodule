@@ -1,4 +1,4 @@
-# demo-product_details module
+# product_details module
 
 Before installing this module, run below composer command to download the phpqrcode library 
 composer require pendalff/phpqrcode
