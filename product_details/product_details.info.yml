@@ -1,0 +1,7 @@
+name: Product Details
+type: module
+description: 'Adds Product content type.'
+core: 8.x
+dependencies:
+  - node
+  - block
