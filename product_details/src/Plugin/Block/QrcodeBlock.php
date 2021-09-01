@@ -58,7 +58,7 @@ class QrcodeBlock extends BlockBase {
 		$qrcode = file_create_url($qrimage);
     return array(
       '#type' => 'markup',
-      '#markup' => $qrimage."<img src='".$qrcode."'/>",
+      '#markup' => "<img src='".$qrcode."'/>",
     );
   }
 
