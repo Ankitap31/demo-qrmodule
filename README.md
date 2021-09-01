@@ -9,3 +9,6 @@ go to block layout and place the block "Scan Here To Purchase This Product" to "
 create contents of "Product Details" type on view content page you can see the QR code for buying product link
 
 demo site hosted here https://dev-demo-drupal-site-demo.pantheonsite.io/ with some dummy contents added.
+site credentials 
+username: admin
+password: admin
