@@ -20,9 +20,9 @@ require_once DRUPAL_ROOT.'\vendor\pendalff\phpqrcode\qrlib.php';
  */
 class QrcodeBlock extends BlockBase {
     public function generateQrCodes($qr_text) {
+      $node = \Drupal::routeMatch()->getParameter('node');
+      $nid = $node->id();
       // The below code will automatically create the path for the img.
-	  $node = \Drupal::routeMatch()->getParameter('node');
-	  $nid = $node->id();
       $path = '';
       $directory = "public://Images/QrCodes/";
       file_prepare_directory($directory, FILE_MODIFY_PERMISSIONS | FILE_CREATE_DIRECTORY);
@@ -48,7 +48,7 @@ class QrcodeBlock extends BlockBase {
 		}
 		$qrimage = "public://Images/QrCodes/".$nid.'.png';
 		if (file_exists($qrimage) == 0) {
-        QrcodeBlock::generateQrCodes($node_detail->get('field_purchase_link')->uri);
+                   QrcodeBlock::generateQrCodes($node_detail->get('field_purchase_link')->uri);
 		}
 
 		$qrcode = file_create_url($qrimage);
