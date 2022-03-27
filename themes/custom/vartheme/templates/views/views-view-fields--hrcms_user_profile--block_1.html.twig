@@ -1,0 +1,51 @@
+{#
+/**
+ * @file
+ * Theme override to display all the fields in a row.
+ *
+ * Available variables:
+ * - view: The view in use.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler controlling this field.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_element: An HTML element for a wrapper.
+ *   - wrapper_attributes: List of attributes for wrapper element.
+ *   - separator: An optional separator that may appear before a field.
+ *   - label: The field's label text.
+ *   - label_element: An HTML element for a label wrapper.
+ *   - label_attributes: List of attributes for label wrapper.
+ *   - label_suffix: Colon after the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ *   - has_label_colon: A boolean indicating whether to display a colon after
+ *     the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ * - row: The raw result from the query, with all data it fetched.
+ *
+ * @see template_preprocess_views_view_fields()
+ */
+#}
+<!-- Begin Profile Container -->
+<div class='d-flex'>
+	<div class='text-uppercase text-underline profile-container col p-0'>
+		<a class='text-white' href='javascript:void(0);' onclick='openProfile(this)'>
+			<!-- Begin First Name -->
+			<h5 class='m-0 font-weight-bold'>{{ fields.field_hp.content }}</h5>
+			<!-- Begin Last Name -->
+			<h5 class='font-weight-bold'>{{ fields.field_last_name.content }}</h5>
+		</a>
+	</div>
+	<!-- Begin Image -->
+	<div class='text-right profile-picture col p-0'>
+		<a class='bg-black' href='javascript:void(0);' onclick='openNotifications(this)'> {{ fields.user_picture.content }} </a>
+	</div>	
+</div>
+<!-- End Profile Container -->
+<!-- Begin Employee ID -->
+<div class='small'>({{ fields.field_employee_number.content }})</div>
+<!-- Begin Job Title -->
+<div class='small'>{{ fields.field_employeetype.content }}, {{ fields.field_hp_business_region.content }}, {{ fields.field_hp_role.content }}</div>

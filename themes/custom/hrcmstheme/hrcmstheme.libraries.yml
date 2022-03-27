@@ -1,0 +1,34 @@
+global-styling:
+  version: VERSION
+  #header: true
+  js:  
+    js/jquery.min.js: {weight: -9999} 
+    js/jquery-migrate.min.js: {}
+    js/slick/slick.min.js: {}    
+    #js/manager-gateway.js: {}  
+    js/w3-freestyle-functions.js: {}
+    js/hpe-service.js: {}  
+    #js/w3-freestyle-resources.js: {}    
+    js/custom_theme.js: {}       
+         
+    
+  
+  libraries:
+ #   jquery.cycle.js:{}
+ #- jquery_cycle/jquery.cycle.all.js:{}
+ #- jquery.cycle/jquery.cycle2.min.js:{}
+ #- jquery.cycle/jquery.cycle2.min.js:{}
+
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+  css:
+    component:
+      css/w3-hpeo.css: {}
+      css/w3cssmods-freestyle.css: {}
+      css/slick/slick.css: {}
+      css/slick/slick-theme.css: {}
+      css/slick/w3-slick.css: {}
+      css/manager-gateway.css: {} 
+      css/custom_theme.css: {} 
+

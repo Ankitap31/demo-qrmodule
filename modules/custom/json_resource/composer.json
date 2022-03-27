@@ -1,0 +1,13 @@
+{
+	"name": "odyssey/json_resource",
+	"description": "Json resource entities.",
+	"type": "drupal-module",
+	"license": "GPL-2.0+",
+	"homepage": "https://odyssey-api-dev.com/json_editor",
+	"authors": [
+	],
+	"support": {
+	},
+	"require": {}
+}
+      

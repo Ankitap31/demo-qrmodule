@@ -1,0 +1,69 @@
+// Moderation status component style.
+// -----------------------------------------------------------------------------
+@import "../../node_modules/bootstrap/scss/functions";  // Bootstrap functions.
+@import "../../node_modules/bootstrap/scss/mixins";     // Bootstrap mixins.
+@import "../variables";                   // hrcms_vartheme variables.
+@import "../mixins";                      // hrcms_vartheme mixins.
+// -----------------------------------------------------------------------------
+
+#edit-moderation-state-wrapper {
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    @include padding-top(1rem);
+
+    fieldset {
+      @include margin-right(5rem);
+
+      label {
+        font-weight: bold;
+        float: left;
+        width: fit-content;
+        @include margin(0 0.5rem 0 0); 
+      }
+      
+      &.form-item-moderation-state-0-state {
+        @include margin-top(-0.5rem);
+
+        label {
+          @include margin-top(0.5rem);
+        }
+      }
+
+      .form-control {
+        max-width: 20em;
+        float: left;
+        width: fit-content;
+      }
+    }
+  }
+}
+[dir="rtl"] #edit-moderation-state-wrapper {
+  > div {
+
+    fieldset {
+      margin-right: 0;
+      @include margin-left(5rem);
+
+      label {
+        float: right;
+        @include margin(0 0 0 0.5rem);
+      }
+      
+      &.form-item-moderation-state-0-state {
+        label {
+          @include margin-top(0.5rem);
+        }
+      }
+
+      .form-control {
+        float: right;
+      }
+    }
+  }
+}
+
+#edit-preview-toggle {
+  @include margin-top(1rem);
+}

@@ -1,0 +1,60 @@
+.slick-prev{
+	left: 0px !important;
+}
+.slick-next{
+	right: 20px !important;
+}
+.slick-prev,.slick-next{
+	z-index: 1 !important;
+}
+.slick-prev:before,.slick-next:before{
+	color: red !important;
+	font-size: 40px !important;
+}
+.slick-dots{
+	bottom: 0px !important;
+	text-align: right !important;
+}
+.slick-dotted.slick-slider{
+	margin-bottom: 0px !important;
+}
+.w3-modal .slick-dotted.slick-slider{
+	margin-bottom: 30px !important;
+}
+.w3-modal .slick-dots{
+	bottom: -35px !important;
+	text-align: center !important;
+}
+.slick-dots li button:before{
+	font-size: 10px !important;
+}
+.slick-dots li.slick-active button:before{
+	color: #01A982 !important;
+}
+.w3-slick{
+	display:block !important;
+	min-height: 315px;
+	max-height: 400px;
+}
+.w3-slick .w3-display-bottomleft{
+	bottom: -4px !important;
+}
+.w3-left-arrow,.w3-right-arrow{
+	top: 50%;
+	z-index: 1;
+	font-size: 30px;
+	position: absolute;
+	text-shadow: #000 2px 2px 2px;
+	transform: translate(-50%,-50%);
+}
+.w3-left-arrow{left: 15px;}
+.w3-right-arrow{right: 7px;}
+.w3-modal .w3-left-arrow{
+	left: 0;	
+}
+.w3-modal .w3-right-arrow{
+	right: -13px;
+}
+.w3-modal .w3-hover-shadow:hover .w3-right{
+	color: #767676;
+}

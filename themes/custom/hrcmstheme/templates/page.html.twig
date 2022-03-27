@@ -1,0 +1,306 @@
+{#
+/**
+ * @file
+ * Bartik's theme implementation to display a single page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template normally located in the
+ * core/modules/system directory.
+ *
+ * Available variables:
+ *
+ * General utility variables:
+ * - base_path: The base URL path of the Drupal installation. Will usually be
+ *   "/" unless you have installed Drupal in a sub-directory.
+ * - is_front: A flag indicating if the current page is the front page.
+ * - logged_in: A flag indicating if the user is registered and signed in.
+ * - is_admin: A flag indicating if the user has permission to access
+ *   administration pages.
+ *
+ * Site identity:
+ * - front_page: The URL of the front page. Use this instead of base_path when
+ *   linking to the front page. This includes the language domain or prefix.
+ *
+ * Page content (in order of occurrence in the default page.html.twig):
+ * - node: Fully loaded node, if there is an automatically-loaded node
+ *   associated with the page and the node ID is the second argument in the
+ *   page's path (e.g. node/12345 and node/12345/revisions, but not
+ *   comment/reply/12345).
+ *
+ * Regions:
+ * - page.header: Items for the header region.
+ * - page.highlighted: Items for the highlighted region.
+ * - page.primary_menu: Items for the primary menu region.
+ * - page.secondary_menu: Items for the secondary menu region.
+ * - page.featured_top: Items for the featured top region.
+ * - page.content: The main content of the current page.
+ * - page.sidebar_first: Items for the first sidebar.
+ * - page.sidebar_second: Items for the second sidebar.
+ * - page.featured_bottom_first: Items for the first featured bottom region.
+ * - page.featured_bottom_second: Items for the second featured bottom region.
+ * - page.featured_bottom_third: Items for the third featured bottom region.
+ * - page.footer_first: Items for the first footer column.
+ * - page.footer_second: Items for the second footer column.
+ * - page.footer_third: Items for the third footer column.
+ * - page.footer_fourth: Items for the fourth footer column.
+ * - page.footer_fifth: Items for the fifth footer column.
+ * - page.breadcrumb: Items for the breadcrumb region.
+ *
+ * @see template_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+
+
+
+<div class='w3-preloader'></div>
+<div class='w3-col s12' id="hpe_global_header"></div>
+<div class='app-content w3-col s12 w3-margin-top-8 w3-margin-bottom-8'>
+
+		<div class='-hpe--service'>
+			<div class='-hpe--width'>		
+			<div class='w3-padding-right-6' id='hpe-global-navigation'>
+					<div class='hpe-row'>
+						<div class="container">
+                                <div class="row">
+                                    <div class="w3-cell-row navbar-header">
+                                        <div class="w3-cell-left w3-cell-middle w3-xlarge">
+                                           {% if page.language_switcher %}
+								
+									<aside class="featured-top__inner section layout-container clearfix" role="complementary">
+									  {{ page.language_switcher }}
+									</aside>
+								 {% endif %}
+                                        </div>
+                                        <div class="w3-text-grey w3-cell w3-cell-right w3-cell-middle w3-right-align">
+                                            <a class='w3-padding-left w3-padding-right' href="{{LBL_contactHR_url}}" target='_blank'>{{LBL_contactHR}}</a>
+                                            <a class='w3-padding-left' href="{{LBL_hrGateway_url}}">{{ LBL_hrGateway }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							
+						<div class='w3-bar w3-large w3-padding-bottom w3-border-bottom hide-menu'> 
+						{{ page.secondary_menu }}
+						</div>
+					</div>
+				</div>
+  
+     
+			<div class="main-content">		
+				<div class="content-left">{{ page.sidebar_second }}</div>					
+				<div class="content-right">{{page.content}}</div>
+				
+				 
+			</div>
+  </div>
+</div>
+</div>
+<div class='w3-col s12' id="hpe_global_footer"></div>
+
+      <!-- Start Approve & Delegate Modal -->
+<div id='m-2' class="w3-modal w3-hide">
+            <div class="w3-modal-content w3-card-4">
+                <div class="w3-container w3-padding-16">
+                    <div class="w3-button w3-display-topright w3-modal-close w3-xlarge" onclick='modal_close();'>×</div>
+                    <h3 class='w3-padding-left w3-padding-right'><strong>{% trans %}APPROVE &amp; DELEGATE{% endtrans %}</strong></h3>
+                    <div class='w3-container w3-col s12'>
+                        <div class='w3-col s12 m5'>
+						
+                            <div class='w3-padding w3-margin-bottom'>
+                                <h4><strong>{% trans %}Approvals{% endtrans %}</strong></h4>
+                                <div>
+										{% set items = simplify_menu('approvals') %}												
+												<ul class='w3-ul w3-margin-top'>
+												  {% for apprv_item in items.menu_tree %}
+													<li class="w3-margin-bottom-8 w3-border-0">
+													  <a class='w3-link' href="{{ apprv_item.url }}" target='_blank'>{{ apprv_item.text }}</a>
+													</li>
+												  {% endfor %}
+												</ul>
+                                </div>
+                            </div>        
+                        </div>
+                        <div class='w3-col s12 m5'>
+                            <div class='w3-padding w3-margin-bottom'>
+                                <h4><strong>{% trans %}Delegations{% endtrans %}</strong></h4>
+                                <div>
+								{% set items = simplify_menu('delegations') %}												
+											<ul class='w3-ul w3-margin-top'>
+												{% for delegations_item in items.menu_tree %}
+													<li class="w3-margin-bottom-8 w3-border-0">
+													  <a class='w3-link' href="{{ delegations_item.url }}" target='_blank'>{{ delegations_item.text }}</a>
+													</li>
+												{% endfor %}
+											</ul>
+											</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Approve & Delegate Modal -->
+      <!-- Start Employee Management Modal -->
+ <div id="m-4" class="w3-modal w3-hide">
+	<div class="w3-modal-content w3-card-4">
+		<div class="w3-container w3-padding-16">
+			<div class="w3-button w3-display-topright w3-modal-close w3-xlarge" onclick='modal_close();'>×</div>
+			<h3 class='w3-padding-left w3-padding-right'><strong>{% trans %}EMPLOYEE MANAGEMENT{% endtrans %}</strong></h3>
+			<div class='w3-container w3-col s12'>
+				<div class='w3-col s12 m4'>
+                            <div class='w3-padding w3-margin-bottom'>
+                                <h4><strong>{% trans %}Jobs & compensation{% endtrans %}</strong></h4>
+								  <div>
+								{% set items = simplify_menu('jobs-and-compensation') %}
+										<ul class='w3-ul w3-margin-top'>
+											{% for jc_item in items.menu_tree %}
+												<li class="w3-margin-bottom-8 w3-border-0">
+													<a class='w3-link' href="{{ jc_item.url }}" target='_blank'>{{ jc_item.text }}</a>
+												</li>
+									{% endfor %}
+										</ul>
+                                </div>
+                            </div>        
+                        </div>
+				<div class='w3-col s12 m4'>
+                            <div class='w3-padding w3-margin-bottom'>
+                                <h4><strong>{% trans %}Performance & career{% endtrans %}</strong></h4>
+								 <div>
+								{% set items = simplify_menu('performance-and-career') %}
+										<ul class='w3-ul w3-margin-top'>
+											{% for pc_item in items.menu_tree %}
+												<li class="w3-margin-bottom-8 w3-border-0">
+													<a class='w3-link' href="{{ pc_item.url }}" target='_blank'>{{ pc_item.text }}</a>
+												</li>
+									{% endfor %}
+										</ul>
+                                </div>
+                               
+                            </div>
+                        </div>
+				<div class='w3-col s12 m4'>
+                            <div class='w3-padding w3-margin-bottom'>
+                                <h4><strong>{% trans %}Leaving HPE{% endtrans %}</strong></h4>
+								 <div>
+								{% set items = simplify_menu('leaving-hpe') %}
+										<ul class='w3-ul w3-margin-top'>
+											{% for lh_item in items.menu_tree %}
+												<li class="w3-margin-bottom-8 w3-border-0">
+													<a class='w3-link' href="{{ lh_item.url }}" target='_blank'>{{ lh_item.text }}</a>
+												</li>
+									{% endfor %}
+										</ul>
+                                </div>
+                               
+                            </div>
+                            <div class='w3-padding w3-margin-bottom'>
+                                <h4><strong>{% trans %}Additional resources{% endtrans %}</strong></h4>
+								 <div>
+								{% set items = simplify_menu('additional-resources') %}
+										<ul class='w3-ul w3-margin-top'>
+											{% for ar_item in items.menu_tree %}
+												<li class="w3-margin-bottom-8 w3-border-0">
+													<a class='w3-link' href="{{ ar_item.url }}" target='_blank'>{{ ar_item.text }}</a>
+												</li>
+									{% endfor %}
+										</ul>
+                                </div>
+                            </div>
+                        </div>
+			</div>
+		</div>
+	
+	</div>
+  </div>
+  <!-- End Employee Management Modal -->
+  <!-- Start Reports Modal -->
+<div id='m-6' class="w3-modal w3-hide">{{ page.report_modal }}</div>
+	<!-- End Reports Modal -->
+	<!-- Start Hiring Modal -->
+<div id='m-5' class="w3-modal w3-hide">
+<div class="w3-modal-content w3-card-4">
+    <div class="w3-container w3-padding-16">
+	<div class="w3-button w3-display-topright w3-modal-close w3-xlarge" onclick='modal_close();'>×</div>
+	<h3 class='w3-padding-left w3-padding-right'><strong>{% trans %}HIRING{% endtrans %}</strong></h3>
+	<div class='w3-container w3-col s12'>
+		<div class='w3-col s12 m5'>
+			<div class='w3-padding w3-margin-bottom'>
+				<h4><strong>{% trans %}Hiring guides & resources{% endtrans %}</strong></h4>
+				 <div>
+				{% set items = simplify_menu('hiring-guides-and-resources') %}
+						<ul class='w3-ul w3-margin-top'>
+							{% for hgr_item in items.menu_tree %}
+								<li class="w3-margin-bottom-8 w3-border-0">
+									<a class='w3-link' href="{{ hgr_item.url }}" target='_blank'>{{ hgr_item.text }}</a>
+								</li>
+					{% endfor %}
+						</ul>
+				</div>
+			   </div>        
+		</div>
+		<div class='w3-col s12 m5'>
+			<div class='w3-padding w3-margin-bottom'>
+				<h4><strong>{% trans %}Requisitions{% endtrans %}</strong></h4>
+				 <div>
+				{% set items = simplify_menu('hiring-requisitions') %}
+						<ul class='w3-ul w3-margin-top'>
+							{% for hr_item in items.menu_tree %}
+								<li class="w3-margin-bottom-8 w3-border-0">
+									<a class='w3-link' href="{{ hr_item.url }}" target='_blank'>{{ hr_item.text }}</a>
+								</li>
+					{% endfor %}
+						</ul>
+				</div>
+			   
+			</div>
+		</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Hiring Modal -->
+	<!-- Start Contingent Workers Modal -->
+<div id='m-3' class="w3-modal w3-hide">
+            <div class="w3-modal-content w3-card-4">
+                <div class="w3-container w3-padding-16">
+                    <div class="w3-button w3-display-topright w3-modal-close w3-xlarge" onclick='modal_close();'>×</div>
+                    <h3 class='w3-padding-left w3-padding-right'><strong>{% trans %}CONTINGENT WORKERS{% endtrans %}</strong></h3>
+                    <div class='w3-container w3-col s12'>
+                        <div class='w3-col s12 m5'>
+                            <div class='w3-padding w3-margin-bottom'>
+                                <h4><strong>{% trans %}Contingent workers{% endtrans %}</strong></h4>								
+                               <div>
+								{% set items = simplify_menu('contingent-workers') %}
+										<ul class='w3-ul w3-margin-top'>
+											{% for cont_item in items.menu_tree %}
+												<li class="w3-margin-bottom-8 w3-border-0">
+													<a class='w3-link' href="{{ cont_item.url }}" target='_blank'>{{ cont_item.text }}</a>
+												</li>
+									{% endfor %}
+										</ul>
+                                </div>
+                            </div>        
+                        </div>
+                        <div class='w3-col s12 m5'>
+                            <div class='w3-padding w3-margin-bottom'>
+                                <h4><strong>{% trans %}Requisitions{% endtrans %}</strong></h4>
+								<div>
+								{% set items = simplify_menu('requisitions') %}
+										<ul class='w3-ul w3-margin-top'>
+											{% for requisitions_item in items.menu_tree %}
+												<li class="w3-margin-bottom-8 w3-border-0">
+													<a class='w3-link' href="{{ requisitions_item.url }}" target='_blank'>{{ requisitions_item.text }}</a>
+												</li>
+									{% endfor %}
+										</ul>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Contingent Workers Modal -->
+	

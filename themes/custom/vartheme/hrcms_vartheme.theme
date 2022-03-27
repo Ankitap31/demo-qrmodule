@@ -1,0 +1,401 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the SASS Starterkit subtheme.
+ */
+
+use Drupal\node\NodeInterface;
+use Drupal\node\Entity\Node;
+use Drupal\file\Entity\File;
+use Drupal\image\Entity\ImageStyle;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\user\Entity\User;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function hrcms_vartheme_theme_registry_alter(&$theme_registry) {
+  // hrcms_vartheme path.
+  $hrcms_vartheme_path = Drupal::service('theme_handler')->getTheme('hrcms_vartheme')->getPath();
+  $theme_registry['entity_embed_container']['path'] = $hrcms_vartheme_path . '/templates/entity-embed';
+
+  $pages = [
+    'page__user__login' => 'page--user--login',
+    'page__user__register' => 'page--user--register',
+    'page__user__password' => 'page--user--password',
+    'page__user__reset' => 'page--user--reset',
+  ];
+
+  foreach ($pages as $key => $template) {
+    $theme_registry[$key]['path'] = $hrcms_vartheme_path . '/templates/betterlogin';
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function hrcms_vartheme_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    if (is_numeric($node)) {
+      $node = Node::load($node);
+    }
+    if ($node instanceof NodeInterface) {
+      array_splice($suggestions, 1, 0, 'page__' . $node->bundle());
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function hrcms_vartheme_preprocess_html(&$variables) {
+  // Add information about the number of sidebars.
+  if (theme_get_setting('bootstrap_barrio_navbar_position')) {
+    $variables['navbar_position'] = theme_get_setting('bootstrap_barrio_navbar_position');
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function hrcms_vartheme_preprocess_page(&$variables) {
+	// Home page redirection.
+  $front = \Drupal::service('path.matcher')->isFrontPage();
+  if ($front == 1)
+  {
+    $current_user = \Drupal::currentUser();
+    $user = User::load($current_user->id());
+    $field_hp_country_id = $user->field_hp_country->target_id;
+	$category = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
+	  ->loadByProperties(['name' => 'Human Resources Home', 'vid' => 'user_common_links']);
+	$category = reset($category);
+	$category_id = $category->id();
+	$query = \Drupal::entityQuery('node')
+	  ->condition('status', 1)
+	  ->condition('field_content_category', $category_id, '=')
+	  ->condition('field_country', $field_hp_country_id, '=');
+	$nids = $query->execute();
+	$nodeid = implode($nids);
+	global $base_url;
+	if ($nodeid) {
+	$absolute_url = $base_url."/node/".$nodeid;
+    $response = new RedirectResponse($absolute_url);
+    $response->send();
+    return;
+	}
+  }
+  // User profile view
+  $variables['notifications'] = views_embed_view('notifications', 'notify_user');
+
+  // Add the pring logo.
+  $variables['logo_print'] = \Drupal::request()->getBaseUrl() . '/' . drupal_get_path('theme', 'hrcms_vartheme') . '/logo-print.png';
+
+  // Add the site name and slogan.
+  $variables['site_name'] = \Drupal::config('system.site')->get('name');
+  $variables['site_slogan'] = \Drupal::config('system.site')->get('slogan');
+
+  // Get user hp Business Region Acronym and hp country for chat.
+  if (\Drupal::currentUser()->isAuthenticated()) {
+    $current_user = \Drupal::currentUser();
+    $user = User::load($current_user->id());
+    $field_hp_country_id = $user->field_hp_country->target_id;
+    $field_hp_business_region_acronym_id = $user->field_hp_business_region_acronym->target_id;
+    
+    if(!empty($field_hp_country_id)){
+      $field_hp_country_name = Term::load($field_hp_country_id)->get('name')->value;
+    }else{
+      $field_hp_country_name = "";
+    }
+    if(!empty($field_hp_business_region_acronym_id)){
+      $field_hp_business_region_acronym_name = Term::load($field_hp_business_region_acronym_id)->get('name')->value;
+    }else{
+      $field_hp_business_region_acronym_name = "";
+    }
+
+    // Get Salesforce and chat config.
+    $salesforceconfig = \Drupal::config('hrcms_salesforce.salesforceconfig');
+    $salesforcechatconfig = \Drupal::config('hrcms_salesforce.salesforcechatconfig');
+
+    // Adding the submit askhr caselink.
+    if(!empty($salesforceconfig->get('sfsubmitaskhrcaselink'))){
+      $variables['submit_askhr_caselink'] = $salesforceconfig->get('sfsubmitaskhrcaselink');
+    }else{
+      $variables['submit_askhr_caselink'] = NULL;
+    }
+
+    // Adding the learning and development.
+    if(!empty($salesforcechatconfig->get('learning_and_development'))){
+      $variables['learning_and_development'] = $salesforcechatconfig->get('learning_and_development');
+    }else{
+      $variables['learning_and_development'] = NULL;
+    }
+
+    // Adding the year end support.
+    if(!empty($salesforcechatconfig->get('year_end_support'))){
+      $variables['year_end_support'] = $salesforcechatconfig->get('year_end_support');
+    }else{
+      $variables['year_end_support'] = NULL; 
+    }
+
+    // Add the Compensation & time off.
+    if ((!empty($field_hp_business_region_acronym_name)) && ($field_hp_business_region_acronym_name == "AMS" ||    $field_hp_business_region_acronym_name == "AP" || $field_hp_business_region_acronym_name == "EUR")){
+      if($field_hp_business_region_acronym_name == "AMS"){
+        $variables['compensation_and_time_off'] = $salesforcechatconfig->get('ams.compensation.global');
+      }elseif($field_hp_business_region_acronym_name == "AP"){
+        $variables['compensation_and_time_off'] = $salesforcechatconfig->get('apj.compensation.global');
+      }elseif($field_hp_business_region_acronym_name == "EUR"){
+        $variables['compensation_and_time_off'] = $salesforcechatconfig->get('emea.compensation.global');
+      }else{
+        $variables['compensation_and_time_off'] = NULL;
+      }
+    } else {
+      $variables['compensation_and_time_off'] = NULL;
+    }
+
+    // Add the All other HR questions.
+    if (!empty($field_hp_country_name)) {
+      if ($field_hp_country_name == "Argentina" || $field_hp_country_name == "Canada" || $field_hp_country_name == "Chile" || $field_hp_country_name == "Colombia" || $field_hp_country_name == "Costa Rica" || $field_hp_country_name == "Mexico" || $field_hp_country_name == "Peru" || $field_hp_country_name == "Puerto Rico" || $field_hp_country_name == "United States") {
+        $variables['all_other_hr'] = $salesforcechatconfig->get('ams.hr.latin_america_us_canada');
+      } elseif($field_hp_country_name == "Brazil") {
+        $variables['all_other_hr'] = $salesforcechatconfig->get('ams.hr.brazil');
+      } elseif($field_hp_country_name == "Australia" || $field_hp_country_name == "China" || $field_hp_country_name == "Hong Kong" || $field_hp_country_name == "Indonesia" || $field_hp_country_name == "Japan" || $field_hp_country_name == "Korea, Republic of" || $field_hp_country_name == "Malaysia" || $field_hp_country_name == "New Zealand" || $field_hp_country_name == "Pakistan" || $field_hp_country_name == "Philippines" || $field_hp_country_name == "Singapore" || $field_hp_country_name == "Taiwan" || $field_hp_country_name == "Thailand" || $field_hp_country_name == "Viet Nam") {
+        $variables['all_other_hr'] = $salesforcechatconfig->get('apj.hr.asia_pacific_japan');
+      } elseif($field_hp_country_name == "India") {
+        $variables['all_other_hr'] = $salesforcechatconfig->get('apj.hr.india');
+      } elseif($field_hp_country_name == "Egypt" || $field_hp_country_name == "QATAR" || $field_hp_country_name == "Saudi Arabia" || $field_hp_country_name == "South Africa" || $field_hp_country_name == "UNITED ARAB EMIRATES") {
+        $variables['all_other_hr'] = $salesforcechatconfig->get('emea.hr.mesa');
+      } elseif($field_hp_country_name == "United Kingdom" || $field_hp_country_name == "Ireland") {
+        $variables['all_other_hr'] = $salesforcechatconfig->get('emea.hr.uki');
+      } elseif($field_hp_country_name == "Austria" || $field_hp_country_name == "Azerbaijan" || $field_hp_country_name == "Belarus" || $field_hp_country_name == "Belgium" || $field_hp_country_name == "Bulgaria" || $field_hp_country_name == "Croatia" || $field_hp_country_name == "Czech Republic" || $field_hp_country_name == "Denmark" || $field_hp_country_name == "Finland" || $field_hp_country_name == "France" || $field_hp_country_name == "Germany" || $field_hp_country_name == "Greece" || $field_hp_country_name == "Hungary" || $field_hp_country_name == "Israel" || $field_hp_country_name == "Italy" || $field_hp_country_name == "Kazakhstan" || $field_hp_country_name == "Luxembourg" || $field_hp_country_name == "Netherlands" || $field_hp_country_name == "Norway" || $field_hp_country_name == "Poland" || $field_hp_country_name == "Portugal" || $field_hp_country_name == "ROMANIA" || $field_hp_country_name == "Russian Federation" || $field_hp_country_name == "Serbia" || $field_hp_country_name == "Slovakia" || $field_hp_country_name == "Spain" || $field_hp_country_name == "Sweden" || $field_hp_country_name == "Switzerland" || $field_hp_country_name == "Tunisia" || $field_hp_country_name == "TURKEY") {
+        $variables['all_other_hr'] = $salesforcechatconfig->get('emea.hr.global');
+      } else{
+        $variables['all_other_hr'] = NULL;
+      }
+    }else{
+      $variables['all_other_hr'] = NULL;
+    }
+  }
+}
+
+
+/**
+ * Implements hook_preprocess_menu().
+ */
+function hrcms_vartheme_preprocess_menu(&$variables) {
+   if (isset($variables['menu_name']) && $variables['menu_name'] === 'user-common-links') {
+    foreach ($variables['items'] as $key => $item) {
+      $url = $item['url']->toString(); 
+      $base = base_path();
+      if ($item['title'] == 'Onboarding') {
+     // if ($url == $base.'onboarding') {
+        if ($variables['user']->isAuthenticated()) {
+          $user = User::load(\Drupal::currentUser()->id()); 
+          if(!empty($user->field_hpstartdate->value)) {
+            $date1 = new DateTime(date("Y-m-d"));
+            $date2 = new DateTime($user->field_hpstartdate->value);
+            $interval = $date1->diff($date2);
+            \Drupal::logger('menu preprocess')->warning("hp start date ". $user->field_hpstartdate->value ." For ".\Drupal::currentUser()->id());
+            \Drupal::logger('menu preprocess')->warning($interval->m." months for ". \Drupal::currentUser()->id());
+            if($interval->m >= 3){
+           // \Drupal::logger('menu preprocess')->warning("Greater than 3 months For ".\Drupal::currentUser()->id());
+            unset($variables['items'][$key]);
+            }
+          }
+        }
+      }
+    }
+    $variables['#cache']['max-age'] = 0;
+  }
+}
+
+/**
+ * Implements hook_preprocess_paragraph().
+ */
+function hrcms_vartheme_preprocess_paragraph(&$variables) {
+  $file_path = NULL;
+  if (isset($variables['paragraph']->bp_image_field)
+    && isset($variables['paragraph']->bp_image_field->target_id)) {
+
+    // Get the target id and build the url.
+    $paragraph = &$variables['paragraph'];
+    if (isset($paragraph->get('bp_image_field')->entity)
+      && isset($paragraph->get('bp_image_field')->entity->field_media_image)
+      && isset($paragraph->get('bp_image_field')->entity->field_media_image->target_id)) {
+
+      $target_id = $paragraph->get('bp_image_field')->entity->field_media_image->target_id;
+      $file = File::load($target_id);
+      if (isset($file)) {
+        $file_uri = $file->getFileUri();
+        $style = ImageStyle::load('de2e');
+        $file_path = $style->buildUrl($file_uri);
+      }
+    }
+  }
+
+  $width_value = NULL;
+  if (isset($variables['paragraph']->bp_width)
+    && isset($variables['paragraph']->bp_width->value)) {
+
+    $width_value = $variables['paragraph']->bp_width->value;
+  }
+
+  $width_map = [
+    'paragraph--width--tiny' => 'col-md-4 offset-md-4 col-sm-8 offset-sm-2',
+    'paragraph--width--narrow' => 'col-md-6 offset-md-3 col-sm-10 offset-sm-1',
+    'paragraph--width--medium' => 'col-md-8 offset-md-2',
+    'paragraph--width--wide' => 'col-md-10 offset-md-1',
+    'paragraph--width--full' => 'col-12',
+    'bg-edge2edge' => 'bg-edge2edge col-12',
+  ];
+
+  $width = 'col-12';
+  if (isset($width_map[$width_value])) {
+    $width = $width_map[$width_value];
+  }
+
+  $custom_paragraph_classes_value = NULL;
+  if (isset($variables['paragraph']->bp_classes)
+      && isset($variables['paragraph']->bp_classes->value)) {
+    $custom_paragraph_classes_value = $variables['paragraph']->bp_classes->value;
+  }
+
+  $gutter_value = FALSE;
+  if (isset($variables['paragraph']->bp_gutter)
+      && isset($variables['paragraph']->bp_gutter->value)) {
+    $gutter_value = $variables['paragraph']->bp_gutter->value;
+  }
+
+  $title_status = FALSE;
+  if (isset($variables['paragraph']->bp_title_status)
+      && isset($variables['paragraph']->bp_title_status->value)) {
+    $title_status = $variables['paragraph']->bp_title_status->value;
+  }
+
+  // Add variables to template.
+  $variables["VBP"] = [
+    'background_image' => [
+      'type' => 'image',
+      'url' => $file_path,
+    ],
+    'bp_width' => [
+      'type' => 'string',
+      'value' => $width,
+    ],
+    'bp_classes' => [
+      'type' => 'string',
+      'value' => $custom_paragraph_classes_value,
+    ],
+    'bp_gutter' => [
+      'type' => 'bool',
+      'value' => $gutter_value,
+    ],
+    'bp_title_status' => [
+      'type' => 'bool',
+      'value' => $title_status,
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for views grid templates.
+ *
+ * Default template: views-bootstrap-grid.html.twig.
+ *
+ * @param array $vars
+ *   An associative array containing:
+ *   - view: A ViewExecutable object.
+ *   - rows: The raw row data.
+ */
+function hrcms_vartheme_preprocess_views_bootstrap_grid(array &$vars) {
+
+  if (isset($vars['options']) && isset($vars['options']["col_xs"])) {
+    $vars['options']["col_xs"] = str_replace("xs-", "", $vars['options']["col_xs"]);
+  }
+
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function hrcms_vartheme_library_info_alter(&$libraries, $extension) {
+
+  // In Drupal ^8.8.0
+  // Popper.js added to Drupal core to replace jQuery UI Position.
+  // https://www.drupal.org/node/3086643
+  // ---------------------------------------------------------------------
+  // Issue #3074267: Replace jQuery UI position() with PopperJS.
+  // https://www.drupal.org/project/drupal/issues/3074267
+  // ---------------------------------------------------------------------
+  // Issue #3108402: Update to Popper.js to 2.0.0 Drupal core 9.
+  // https://www.drupal.org/project/drupal/issues/3108402
+  // ---------------------------------------------------------------------
+  // Issue #3115895: Provide support for Popper.js ^2.0.0 core/popperjs
+  // library and Drupal 9.
+  // ---------------------------------------------------------------------
+  // This fix will make it work for old and new Drupal sites.
+  // It will be removed when we branch for 9.x-1.x core branch.
+  // ---------------------------------------------------------------------.
+  // Only for older versions of Drupal.
+  // Less than 8.8.0.
+  if (version_compare(Drupal::VERSION, '8.8.0', 'lt')) {
+    if ($extension == 'hrcms_vartheme' && isset($libraries['bootstrap-scripts'])) {
+      $libraries['bootstrap-scripts']['js']['js/popper/popper.min.js'] = [];
+      foreach ($libraries['bootstrap-scripts']['dependencies'] as $dependency_index => $dependency) {
+        if ($dependency == 'core/popperjs') {
+          unset($libraries['bootstrap-scripts']['dependencies'][$dependency_index]);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function hrcms_vartheme_form_alter(&$form, $form_state, $form_id) {
+  if (preg_match('/^node_.*._layout_builder_form$/', $form_id)
+    && isset($form['moderation_state'])) {
+    $form['moderation_state']['#attributes']['class'][] = 'well';
+    $form['#attached']['library'][] = 'hrcms_vartheme/moderation-state';
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * Add views unformatted template suggestions.
+ *
+ * @inheritdoc
+ */
+function hrcms_vartheme_theme_suggestions_views_view_unformatted_alter(array &$suggestions, array $variables) {
+  return [
+    'views_view_unformatted__' . $variables['view']->id()
+  ];
+}
+
+/**
+ * Implements template_preprocess_block().
+ */
+function hrcms_vartheme_preprocess_views_view_unformatted(&$variables) {
+	$variables['workday_custom_link'] = \Drupal::config('hrcms_link.settings')->get('workday_custom_link');
+    $variables['accelerating_custom_link'] = \Drupal::config('hrcms_link.settings')->get('accelerating_custom_link');
+}
+
+/**
+ * Implements template_preprocess_views_view_fields().
+ */
+function hrcms_vartheme_preprocess_views_view_fields(&$variables) {
+  if ($node = \Drupal::request()->attributes->get('node')) {
+    $variables['nodeid'] = $node->id();
+  }
+}
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for node templates.
+ */
+function hrcms_vartheme_suggestions_views_view_alter(array &$suggestions, array $variables) {
+  $view = $variables['view'];
+  $suggestions[] = 'views__' . $view->getDisplay()->getBaseId();
+}

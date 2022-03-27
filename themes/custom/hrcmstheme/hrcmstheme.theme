@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the Bartik theme.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Template\Attribute;
+
+function hrcmstheme_preprocess_node(&$variables) {		
+   $view_mode = $variables['view_mode']; // Retrieve view mode
+  $allowed_view_modes = ['full']; // Array of allowed view modes (for performance so as to not execute on unneeded nodes) 
+  // If view mode is in allowed view modes list, pass to THEME_add_regions_to_node()
+  if(in_array($view_mode, $allowed_view_modes)) {
+    // Allowed regions (for performance so as to not execute for unneeded region)
+    $allowed_regions = ['most_used','employee_management','top_homeslide','welcome_hr','spotlight','hr_calendar','hr_calendar_popup','news_communication','news_communication_modal','tools_resources','tools_resources_modal','hr_forum_media_modal','social_media','social_media_modal','give_feedback','broken_link_footer','hr_services','hr_services_modal','hr_organizations','hr_organizations_modal','hr_development','hr_development_modal','hr_initiatives','hr_initiatives_modal','reporting_analytics','reporting_analytics_modal','policies_compliance','policies_compliance_modal','us_immigration','hr_action','share_story','program_breiefing','health_campaign','hr_forum','myhr_slide','sidebar_second','reports_block','hiring_block','contigent_workers_block','approve_delegate_block','hrcms_search'];
+    hrcmstheme_add_regions_to_node($allowed_regions, $variables);
+  }
+	  
+}
+
+function hrcmstheme_add_regions_to_node($allowed_regions, &$variables){
+	//print_r($allowed_regions);exit;
+	$theme = \Drupal::theme()->getActiveTheme()->getName();
+ 
+  // Retrieve theme regions
+  $available_regions = system_region_list($theme, 'REGIONS_ALL');
+ 
+  // Validate allowed regions with available regions
+  $regions = array_intersect(array_keys($available_regions), $allowed_regions);
+ 
+  // For each region
+  foreach ($regions as $key => $region) {
+ 
+    // Load region blocks
+    $blocks = entity_load_multiple_by_properties('block', array('theme' => $theme, 'region' => $region));
+ 
+    // Sort ‘em
+    uasort($blocks, 'Drupal\block\Entity\Block::sort');
+ 
+    // Capture viewable blocks and their settings to $build
+    $build = array();
+    foreach ($blocks as $key => $block) {
+      if ($block->access('view')) {
+        $build[$key] = entity_view($block, 'block');
+      }
+    }
+     // Add build to region
+    $variables[$region] = $build;
+  }
+	
+}
+ function hrcmstheme_preprocess_html(&$variables) {
+  $variables['path_info']['args'] = FALSE;  
+  $path = \Drupal::service('path.current')->getPath();
+  $path_args = explode('/', $path);
+   if (isset($path_args[1]) && isset($path_args[2]) && ($path_args[1] == 'node') && (is_numeric($path_args[2]))) {
+   // $variables['attributes']['class'][] = 'page-node-' . $path_args[2] 'node-' . $variables['node_type'] ; 
+    $variables['attributes']['class'][] = 'node-' . $variables['node_type'] ; 
+  }
+}
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function hrcmstheme_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  // Get Request Object.
+  $request = \Drupal::request();
+
+  // If there is HTTP Exception..
+  if ($exception = $request->attributes->get('exception')) {
+    // Get the status code.
+    $status_code = $exception->getStatusCode();
+    if (in_array($status_code, array(401, 403, 404))) {
+      $suggestions[] = 'page__' . $status_code;
+    }
+  }
+}  
+
+

@@ -1,0 +1,182 @@
+/* Global */
+.hpe-row{margin:0 0 10px 0 !important;}
+.w3-title{font-weight:bold !important;}
+/*** Navigation ***/
+.w3-bar{font-weight:bold !important;}
+.w3-bar.w3-large{font-size: 18px !important;}
+.w3-bar a:hover{text-decoration: none;}
+/*** Level 01 Boxes ***/
+.w3-level-1-row-0-box{height:400px;}
+.w3-level-1-row-0-box .w3-title,
+.w3-level-1-row-1-box .w3-title{text-decoration: none;}
+.w3-level-1-row-1-box{height: 235px;}
+.w3-level-1-row-2-box form input.w3-col.s11{width:91.66% !important;}
+/*** Modals ***/
+@media (min-width:993px){#Employee-Management .w3-modal-content{width: 1000px;}}
+
+w3-title {
+	text-transform: uppercase!important;
+}
+h3.w3-xlarge {
+	font-size: 20px !important;
+}
+.w3-left,
+.w3-right,
+.w3-badge {
+	cursor: pointer;
+}
+.w3-badge {
+	height: 13px;
+	width: 13px;
+	padding: 0;
+}
+.image-slides {
+	display: none;
+}
+.image-slides.active {
+	display: block;
+}
+.w3-image-container {
+	overflow: hidden;
+	height: 315px;
+}
+.image-slides .w3-padding {
+	padding-top: 20px !important;
+	padding-bottom: 20px!important;
+}
+.w3-box-height-1 {
+	height: 150 px;
+}
+.w3-box-height-2 {
+	height: 170px;
+}
+.w3-box-height-3 {
+	height: 335px;
+}
+a.w3-button:hover {
+	text-decoration: none;
+	box-shadow: 0 0 0 2px;
+}
+a.w3-border-gray:hover {
+	box-shadow: 0px 0px 0px 2px #cccccc !important;
+}
+a.w3-border-orange:hover {
+	box-shadow: 0px 0px 0px 2px #ff8d6d !important;
+}
+.hpe-row.w3-margin-bottom-0 {
+	margin: 0 0 0 0 !important;
+}
+.green-tinybox-lightbox {
+	padding: 15px;
+}
+.green-tinybox-lightbox-small {	border-color: #01a982 !important;}
+.w3-modal-box-height-1 {
+	min-height: 177px;
+}
+.w3-modal-box-height-2 {
+	min-height: 160px;
+}
+.w3-modal-box-height-3 {
+	min-height: 440px;
+}
+.w3-modal-box-height-4 {
+	min-height: 92px;
+}
+.w3-modal-height-06 {
+	min-height: 108px;
+}
+.w3-modal-height-07 {
+	min-height: 328px;
+}
+.w3-modal-height-08 {
+	min-height: 230px;
+}
+.w3-modal-height-09 {
+	min-height: 130px;
+}
+.w3-modal-height-10 {
+	min-height: 196px;
+}
+.w3-modal-box-height-11 {
+	min-height: 328px;
+}
+.w3-modal-box-height-12 {
+	min-height: 130px;
+}
+.w3-modal-box-height-13 {
+	min-height: 120px;
+}
+.w3-modal-box-height-14 {
+	min-height: 420px;
+}
+.w3-modal-box-height-15 {
+	min-height: 250px;
+}
+.w3-modal-box-height-16 {
+	min-height: 240px;
+}
+.w3-modal-box-height-17 {
+	min-height: 350px;
+}
+.w3-modal-box-height-18 {
+	min-height: 240px;
+}
+.w3-modal-box-height-19 {
+	min-height: 400px;
+}
+.w3-ul li {
+	list-style: none;
+}
+.w3-form-width {
+	width: 500px;
+}
+#HR-in-Action img {
+	width: 220px;
+	height: 109px;
+}
+#HR-in-Action img {
+	width: 220px;
+	height: 109px;
+}
+#HR-Services .xs3 {
+	width: 24.64%;
+}
+:focus {
+	outline: none;
+}
+.w3-modal-content-small {
+	width: 700px;
+}
+table {
+	border-collapse: collapse;
+}
+table,
+td,
+th {
+	border: 1px solid black;
+}
+#HR-Forum table,
+#HR-Forum td,
+#HR-Forum th {
+	border: 0px solid #FFF;
+}
+#HR-Forum tr td {
+	border-right: 2px solid #FFF;
+	border-bottom: 2px solid #FFF;
+}
+#HR-Forum tr td:last-child {
+	border: 0px solid #FFF;
+	border-bottom: 2px solid #FFF;
+}
+button.accent {
+	border-color: #ff8d6d !important;
+	background-color: #fff !important;
+	border: solid;
+}
+button.accent:hover {
+	box-shadow: 0px 0px 0px 2px #ff8d6d;
+}
+.hr-forum-banner {
+	overflow: hidden;
+	height: 300px;
+}

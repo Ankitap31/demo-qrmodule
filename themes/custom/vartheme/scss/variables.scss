@@ -1,0 +1,38 @@
+//
+// hrcms_vartheme Variables ovarrides.
+// --------------------------------------------------
+
+
+// #############################################################################
+// Bootstrap library standard variables.
+// #############################################################################
+// All variables which are used in the default bootstrap library.
+// You can change them in hrcms_vartheme for the bootstrap-variables.sass
+//
+@import "bootstrap-variables"; // Bootstrap custom variables ovarrides in hrcms_vartheme.
+
+
+// #############################################################################
+// Barrio custom variables.
+// #############################################################################
+// All needed custom variables for Bootstrap Barrio theme.
+// You can change them in hrcms_vartheme in the bootstrap-variables.sass
+//
+@import "barrio-variables"; // Barrio custom variables ovarrides in hrcms_vartheme.
+
+
+// #############################################################################
+// Vartheme BS4 custom variables
+// #############################################################################
+// All needed custom Vartheme bs4 variables
+// You can change them in hrcms_vartheme in the vartheme_bs4-variables.sass
+//
+@import "vartheme_bs4-variables"; // Vartheme BS4 custom variables ovarrides in hrcms_vartheme.
+
+
+// #############################################################################
+// hrcms_vartheme custom needed variables
+// #############################################################################
+// Add custom needed hrcms_vartheme variables.
+// In the generated hrcms_vartheme not in Vartheme BS4 base theme.
+//

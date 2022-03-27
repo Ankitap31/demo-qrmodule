@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="">
+	<div class="scrollable-content">
+	{% for row in rows %}
+		<div class='message inbx_unread'>
+		  {{ row.content }}      
+		</div>
+		<hr>
+	{% endfor %}
+	</div>
+	<!-- Begin Buttonss -->
+	<div class='d-flex'>
+		<button class='bg-none font-weight-bolder text-uppercase p-2 border border-width-3 border-orange'href="{{ workday_custom_link }}">Workday</button>
+		<button class='bg-none font-weight-bolder text-uppercase p-2 border border-width-3 border-orange ml-auto' href="{{ accelerating_custom_link }}">Accelerating U</button>
+	</div>
+	<!-- End Buttons -->								
+ </div>

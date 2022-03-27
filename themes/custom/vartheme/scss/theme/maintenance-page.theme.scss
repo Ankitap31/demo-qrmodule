@@ -1,0 +1,17 @@
+// hrcms_vartheme Maintenance page custom style.
+// -----------------------------------------------------------------------------
+@import "../../node_modules/bootstrap/scss/functions";  // Bootstrap functions.
+@import "../../node_modules/bootstrap/scss/mixins";     // Bootstrap mixins.
+@import "../variables";                   // hrcms_vartheme variables.
+@import "../mixins";                      // hrcms_vartheme mixins.
+// -----------------------------------------------------------------------------
+
+/* Insert your hrcms_vartheme maintenance page custom SASS styling. */
+
+.maintenance-page {
+  footer {
+    .footer-credits {
+      @include font-size(0.75rem);
+    }
+  }
+}

@@ -1,0 +1,182 @@
+<div class='w3-orange w3-padding w3-margin-bottom-8 w3-alert'><strong>Note: </strong>We recommend using Google Chrome when accessing this site.</div>
+<!-- Start HPEOnline Body Section -->
+<div class='container-fluid' id='hpe-online-body'>
+	<!-- Main Content -->
+	<div class='w3-col xs12 m9 main'>
+		<div class='w3-col s12 hpe-row'>
+			<div class='w3-col s12'>
+				<div class='column-count'>
+					<!-- 75 Row -->
+					<div class='w3-col xs12 s6 m8 hpe-col'>
+						<div class='content'>
+							<div class="w3-center">
+								<div class="w3-display-container">													
+									<div class='w3-image-container slick-container-1' data-slick='{"autoplay":true, "autoplaySpeed":3000, "arrows":true,"dots":true}'>{{ myhr_slide }}										
+									</div>
+								</div>	
+							</div>											
+						</div>
+					</div>
+					<div class='w3-col xs12 s6 m4 hpe-col'>
+						<div class='content'> {{ welcome_hr }} 
+							<!-- Spotlight Row -->
+							<div class='w3-col xs12'>
+								<div class='content'> {{ spotlight }} 
+										
+								</div>
+							</div>													
+						</div>
+						</div>
+					<!-- End 75 Row -->
+				</div>
+			</div>
+		</div>
+		<!-- 75/25 Row -->
+		<!-- 33/33/33 Row -->
+							<div class='w3-col s12 hpe-row w3-margin-bottom-0 w3-padding-bottom-16 w3-border-bottom'>
+								<div class='w3-col s12'>
+									<div class='column-count'>
+										<div class='w3-col s12 w3-padding-bottom-0'>
+											<!-- 33 Row -->
+												<div class='w3-col xs12 s6 l4 hpe-col'>
+												{{ hr_services }}												
+												</div>
+											<!-- End 33 Row -->
+											<!-- 33 Row -->
+											<div class='w3-col xs12 s6 l4 hpe-col'>
+												{{ hr_organizations }}											
+											</div>
+											<!-- End 33 Row -->				
+											<!-- 33 Row -->
+											<div class='w3-col xs12 s6 l4 hpe-col'>
+											{{ hr_development }}
+											</div>
+											<!-- End 33 Row -->													
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- End 33/33/33 Row -->
+							<!-- 33/33/33 Row -->
+							<div class='w3-col s12 hpe-row w3-padding-top-16'>
+								<div class='w3-col s12'>
+									<div class='column-count'>
+										<div class='w3-col s12 w3-padding-bottom-8'>		
+											<!-- 33 Row -->
+											<div class='w3-col xs12 s6 l4 hpe-col'>
+											{{ hr_initiatives }}											
+											</div>
+											<!-- End 33 Row -->											
+											<!-- 33 Row -->
+											<div class='w3-col xs12 s6 l4 hpe-col'>
+											{{ reporting_analytics }}
+											</div>
+											<!-- End 33 Row -->	
+											<!-- 33 Row -->
+											<div class='w3-col xs12 s6 l4 hpe-col'>
+											{{ policies_compliance }}																						
+											</div>
+											<!-- End 33 Row -->	
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 33/33/33 Row -->
+	</div>
+	<div class='w3-col xs12 m3 main'>
+							<!-- 100 Row -->
+							<div class='w3-col s12 hpe-row'>
+								<div class='w3-col s12'>
+									<div class='column-count'>							
+										<!-- HR Calendar Row -->
+										<div class='w3-col xs12'>
+											<div class='content'>{{ hr_calendar }}</div>											
+										</div>
+										<!-- News Row -->
+										<div class='w3-col xs12'>
+											<div class='content'>{{ news_communication }}</div>											
+										</div>	
+										<!-- Tools & Resources Row -->
+										<div class='w3-col xs12'>
+										{{ tools_resources }}											
+										</div>
+										<!-- Tools & Resources Row End -->																					
+										<!-- Social Media Row -->
+										<div class='w3-col xs12'>
+										{{ social_media }}											
+										</div>	
+										<div class='w3-col xs12'>
+										{{ hr_forum }}											
+										</div>	
+										<div class='w3-col xs12'>
+											{{ give_feedback }}
+										</div>
+										<!-- Social Media Row End -->
+									</div>
+								</div>
+							</div>
+	</div>
+						<!-- Start Feedback Footer -->
+						<div class='w3-col s12 main w3-white w3-margin-bottom-8' id='hpe-local-footer'>
+							{{ broken_link_footer }}
+						</div>
+						<!-- End Feedback Footer -->
+</div>
+
+<div id="Calendar" class="w3-modal w3-hide">{{ hr_calendar_popup }}</div>	
+<div id="News" class="w3-modal w3-hide">
+	<div class="w3-modal-content">
+	<div class="w3-container w3-padding-16">
+	<div class="w3-button w3-display-topright w3-modal-close w3-xlarge" onclick='modal_close();'>×</div>
+	<h3 class='w3-padding-left w3-padding-right'><strong>News & Communication</strong></h3>
+	<div class='w3-bar w3-padding-left w3-padding-right'>
+		<a name='news-19' class='w3-padding-left w3-padding-right w3-text-green w3-large' href='javascript:void(0);' onclick='modal_tab(event)'>2019</a>
+		<a name='news-18' class='w3-padding-left w3-padding-right' href='javascript:void(0);' onclick='modal_tab(event)'>2018</a>
+	</div>
+{{ news_communication_modal }}
+</div>
+</div>
+</div>
+<div id="Tools-and-Resources" class="w3-modal w3-hide">{{ tools_resources_modal }}</div>
+<div id="Social_media" class="w3-modal w3-hide">{{ social_media_modal }}</div>
+<div id="HR-Forum" class="w3-modal w3-hide">{{ hr_forum_media_modal }}</div>
+<div id="HR-Services" class="w3-modal w3-hide">
+	<div class="w3-modal-content">
+		<div class="w3-container w3-padding-16">
+			<div class="w3-button w3-display-topright w3-modal-close w3-xlarge" onclick='modal_close();'>×</div>
+				<h3 class='w3-padding-left w3-padding-right'><strong>HR Services</strong><hr></h3>					
+				<div class="w3-tab-container w3-container">				
+				<div class="w3-row">
+							<a name='Business-HR-Services' href="javascript:void(0)" onclick='tab_open(event);'>
+								<div class="w3-quarter tablink w3-bottombar w3-hover-white-grey w3-padding w3-border-green">Business HR Services</div>
+							</a>
+							<a name='Shared-Services'  href="javascript:void(0)" onclick='tab_open(event);' >
+								<div class="w3-quarter tablink w3-bottombar w3-hover-white-grey w3-padding">Shared Services</div>
+							</a>
+							<a name='COE-Services' href="javascript:void(0)" onclick='tab_open(event);' >
+								<div class="w3-quarter tablink w3-bottombar w3-hover-white-grey w3-padding">COE Services</div>
+							</a>
+							<a name='Site-based-Services' href="javascript:void(0)" onclick='tab_open(event);' >
+								<div class="w3-quarter tablink w3-bottombar w3-hover-white-grey w3-padding">Site-based Services</div>
+							</a>
+						</div>
+				{{ hr_services_modal }}
+			</div>
+		</div>
+	</div>
+</div>
+<div id="HR-Organizations-and-Contacts" class="w3-modal w3-hide">{{ hr_organizations_modal }}</div>
+<div id="HR-Development-and-Training" class="w3-modal w3-hide">{{ hr_development_modal }}</div>
+<div id="HR-for-HR-Initiatives" class="w3-modal w3-hide">{{ hr_initiatives_modal }}</div>
+<div id="Reporting-and-Analytics" class="w3-modal w3-hide">{{ reporting_analytics_modal }}</div>
+<div id="Policies-and-Compliance" class="w3-modal w3-hide">{{ policies_compliance_modal }}</div>
+<div id="US-Immigration-Site-Visits" class="w3-modal " >{{ us_immigration }}</div>
+<div id="HR-in-Action" class="w3-modal" >{{ hr_action }}</div>
+<div id="Health_Campaign"class="w3-modal" >{{ health_campaign }}</div>
+<div id="Program-Breiefing-HR" class="w3-modal">{{ program_breiefing }}</div>
+<div id="Share-Your-Story" class="w3-modal">
+	<div class="w3-container w3-padding-16">
+	<div class="w3-button w3-display-topright w3-modal-close w3-xlarge" onclick='modal_close();'>×</div>
+	{{ share_story }} 
+	</div>
+</div>

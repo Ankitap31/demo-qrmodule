@@ -1,0 +1,100 @@
+/************ DRUPAL TOOLBAR SECTION ***************/
+#toolbar-bar{
+	z-index: 9999;
+}
+/************ HPE INSIDER SECTION ***************/
+.-hpe--width{
+	width: 90%
+}
+/************ SIDEBAR SECTION ***************/
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 320px; /* 0 width - change this with JavaScript */
+    position: absolute; /* Stay in place */
+    z-index: 1042; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0px;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+.sidenav a{color: #7E8285;}
+.sidenav a:hover{text-decoration:none; color:#FFFFFF;}
+#sidenav-content,
+#sidenav-footer,
+#version{
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */    
+}
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+/************ END SIDEBAR SECTION ***************/
+/************ MAIN CONTENT SECTION ***************/
+main {
+    transition: margin-left .5s;
+    padding: 20px;
+    margin-left: 0px;
+	height: 60.3rem;
+	overflow: hidden;
+}
+#content_container{
+	width: 100%; 
+	margin-left: 320px;
+	transition: 0.5s;
+}
+/************ END MAIN CONTENT SECTION ***************/
+/************ PROFILE SECTION ***************/
+#profile{
+	position: absolute;
+	z-index: 1041;
+	left: -775px;
+	overflow: auto;
+	transition: 0.5s;
+}
+/************ END PROFILE SECTION ***************/
+/************ START NOTIFICATIONS SECTION ***************/
+#notifications{
+	position: absolute;
+	z-index: 1041;
+	left: -775px;
+	overflow: auto;
+	transition: 0.5s;	
+}
+/************ END NOTIFICATIONS SECTION ***************/
+/************ ALERT SECTION ***************/
+#alerts{
+    position: absolute;
+    z-index: 1045;
+    left: 320px;
+	top: -200px;
+    min-height: 130px;
+	transition: 0.5s
+}
+/************ END ALERT SECTION ***************/
+.modal-backdrop{z-index:transition: 0.5s;}
+
+
+/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+@media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+  }
+}
+/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+  }
+}

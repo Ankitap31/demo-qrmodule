@@ -1,0 +1,11 @@
+entity.json_resource.canonical:
+  path: '/json_resource/{json_resource}'
+  defaults:
+    # Calls the view controller, defined in the annotation of the contact
+    # entity. This marks this route as belonging to this entity type.
+    _entity_view: 'json_resource'
+    _title: 'JSON Resource Content'
+  requirements:
+    # Calls the access controller of the entity, passing in the suffix ('view')
+    # as the $operation parameter to checkAccess().
+    _entity_access: 'json_resource.view'

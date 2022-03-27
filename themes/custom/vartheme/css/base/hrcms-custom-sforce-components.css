@@ -1,0 +1,270 @@
+/***** Side Navigation *****/
+#sideNav .profile-container img {
+  max-width: 55%;
+}
+
+/****** START IMAGE SECTION *****/
+.hero-container {
+  height: 320px;
+  overflow: hidden;
+}
+
+/****** START HR FANCY LINKS ******/
+.fancy-link-box {
+  height: 275px;
+  padding: 64px;
+}
+
+/************ START MY CASES SECTION ***************/
+.cases {
+  height: 255px;
+}
+
+#my-cases {
+  height: 120px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+/************ END MY CASES SECTION ***************/
+
+/************ START FEEDBACK SECTION ***************/
+#feedback_footer {
+  position: fixed;
+  bottom: 30px;
+}
+
+#feedback_footer form group {
+  border-top-left-radius: 80px;
+  border-bottom-left-radius: 80px;
+  border-top-right-radius: 80px;
+  border-bottom-right-radius: 80px
+}
+
+#feedback_footer #feedback_message {
+  width: 0px;
+  border: 0;
+  transition: 1s;
+}
+
+/************ END FEEDBACK FOOTER SECTION ***************/
+/************ START HELP SECTION ***************/
+#help {
+  height: 100%;
+  width: 30%;
+  position: fixed;
+  z-index: 1041;
+  top: 0;
+  right: -27.45%;
+  /*right: 0%;*/
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+  transition: 1s;
+  /* 0.5 second transition effect to slide in the sidenav */
+}
+
+#help_caret {
+  position: fixed;
+  bottom: 0;
+}
+
+#help_content {
+  height: 70%;
+  transition: 1.5s;
+  /* 0.5 second transition effect to slide in the sidenav */
+}
+
+#search_results_container {
+  height: 100%;
+}
+
+#additional_help_container {
+  border-top: 2px solid black;
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+}
+
+#additional_help_container .button {
+  width: 160px;
+  height: 40px;
+}
+
+#help .d-flex{
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+}
+
+/************ END HELP SECTION ***************/
+
+/***** Chat Modal *****/
+#chatModal .modal-lg {
+  max-width: 640px;
+}
+
+#chatModal .modal-body .button {
+  max-width: 190px;
+}
+
+.chat_agent,
+.askhr_case {
+  border-color: #01A982 !important;
+  border-width: 3px !important;
+  background-color: transparent !important;
+  text-decoration: none !important;
+}
+
+.ld_buttons a {
+  display: block;
+}
+
+/***** END Chat Modal *****/
+/***** Predefined Contextual Help Tooltip *****/
+.predefined-contextual-help {
+  background-color: lightgray;
+  border-bottom: 1px dotted #333333;
+  cursor: pointer;
+}
+
+/***** Dynamic Contextual Help Tooltip *****/
+
+/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: auto;
+  background-color: #555;
+  color: #fff;
+  border-radius: 6px;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  top: 70px;
+  left: 50px;
+  margin-left: 0px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Trending topics */
+
+.topicsul ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.topicsul ul li {
+    padding: 0.5rem 0;
+}
+
+.topicsul ul li a {
+    color: #212529;
+    text-decoration: none;
+}
+/* Cases */
+.border-orange{
+    border-bottom: 4px solid;
+    border-color: #ff7e00;
+}
+
+.cases {
+    background-color: #e5e5e5;
+}
+
+/* Search box */
+
+.category-search,
+#main_input_help_query {
+    background-color: #d9f2ec;
+}
+
+input#main_input_help_query:focus,
+input.nav_search:focus {
+  outline: none;
+}
+
+#main_input_help_query {
+  background-color: #d9f2ec;
+  padding-left: 0px !important;
+}
+
+#main_input_search_query {
+    padding: 0px !important;
+    margin-left: 0px !important;
+    font-size: 35px;
+}
+
+.modal-backdrop.show {
+  opacity: 0.5;
+  z-index: 5;
+}
+
+.categories a {
+  color: #212529;
+  text-decoration: none;
+}
+
+.ask_hr_more a {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.cases_heading a {
+  color: #212529;
+  text-decoration: none;
+}
+
+.ld_buttons .off {
+  pointer-events: auto !important;
+  cursor: default !important;
+}

@@ -1,0 +1,396 @@
+.views-displays .tabs .open > a {
+  border-radius: 0.3rem 0.3rem 0 0;
+}
+
+.views-displays .tabs .open > a:hover,
+.views-displays .tabs .open > a:focus {
+  color: #007bff;
+}
+
+.views-displays .tabs .action-list {
+  padding: 0;
+}
+
+.views-displays .secondary .form-submit {
+  font-size: 0.875rem;
+}
+
+.views-filterable-options
+  .filterable-option:nth-of-type(even)
+  .form-type-checkbox {
+  background-color: #f9f9f9;
+}
+
+.views-ui-display-tab-actions .dropbutton .form-submit {
+  color: #0056b3;
+}
+
+.views-ui-display-tab-actions .dropbutton .form-submit:hover,
+.views-ui-display-tab-actions .dropbutton .form-submit:focus {
+  color: #007bff;
+}
+
+.message {
+  background-color: #fff;
+  color: #666;
+  padding: 6px;
+}
+
+.inbx_unread {
+  color: #333;
+  padding: 6px;
+  font-weight: bold;
+}
+
+.inbx_selected {
+  background-color: #333;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 6px;
+}
+
+.block-views-blocknotifications-notify-user{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#block-views-block-push-notification-block-1 {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.field--name-field-user-profile-reference {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+/* Modal Content */
+
+#block-views-block-notifications-notify-user .modal-content {
+  background-color: #fefefe;
+  margin: 17%;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  margin-top: 75px;
+  height:610px;
+}
+
+.field--name-field-user-profile-reference .modal-content {
+  background-color: #fefefe;
+  margin: 17%;
+  padding: 5%;
+  border: 1px solid #888;
+  width: 25%;
+  margin-top: 75px;
+}
+
+#block-views-block-push-notification-block-1 .modal-content {
+  background-color: #fefefe;
+  margin: 17%;
+  padding: 5%;
+  border: 1px solid #888;
+  width: 83%;
+  margin-top: 75px;
+}
+
+/* The Close Button */
+.close,
+.closes,.closeit {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-left: 95%;
+}
+
+.close:hover,
+.close:focus,
+.closes:hover,
+.closes:focus,
+.closeit:hover,
+.closeit:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: rgb(241, 76, 25);
+    border-radius: 50%;
+    margin-right: 0px;
+    float: right;
+    margin-top: 0px;
+}
+
+.Action:before {
+  content: url("../../images/action-icon.png");
+}
+
+.Task:before {
+  content: url("../../images/task-icon.png");
+}
+
+.Alert:before {
+  content: url("../../images/alert-icon.png");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  padding-left: 82px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 111px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/*view more view less section*/
+.notification {
+	width: 600px;
+	margin: 10px;
+}
+a.morelink {
+	text-decoration:none;
+	outline: none;
+}
+
+.morecontent span {
+	display: none;
+}
+
+.field--name-field-user-profile-reference header {
+  display: none;
+}
+
+.column a {
+  border-style: solid;
+  border-color: orange;
+  color: black;
+}
+
+.arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid rgb(92, 94, 92);
+  margin-left: 98%;
+}
+
+.scrollable-content {
+  height: 650px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.employeetype, .business {
+  color: rgb(255, 255, 255);
+}
+
+.profilepic img {
+  height: 45px;
+  width: 45px;
+  float: right;
+  margin-top: -31px;
+}
+
+#myBtns {
+  font-size: 25px;
+}
+
+.square-box a:link, .square-box a:visited {
+  background-color: #ffffff;
+  color: black;
+  padding: 40px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border: solid;
+}
+
+.square-box  a:hover, .square-box a:active {
+  background-color: #b9b9b9;
+}
+.layout__region--first, .group-first {
+	text-align: center;
+}
+
+.group-second {
+	text-align: center;
+}
+
+.layout__region--second, .group-third {
+	text-align: center;
+}
+
+.layout__region--third, .group-fourth {
+	text-align: center;
+}
+
+ .row.square-blocks a {
+	width: 180px;
+    height: 180px;
+	margin-left: 2%;
+    margin-right: 2%;
+	margin-bottom: 2%;
+}
+.row.square-blocks .field__item{
+	display: inline-block !important;
+}
+.row.square-blocks .views-row {
+	display: inline-block !important;
+}
+.row.default .field__item, .row.default .views-row {
+	padding-bottom: 4%;
+	margin-left: 3%;
+}
+.row.orange-border a {
+    margin: 2%;
+    padding-bottom: 4%;
+    margin-left: 4%;
+    border-style: solid;
+    padding: 1%;
+    border-color: orange;
+    margin-right: 10%;
+}
+.row.orange-border .views-row {
+	margin: 2% !important;
+    padding-bottom: 4% !important;
+    margin-left: 4% !important;
+    padding: 1% !important;
+}
+.row.default, .row.square-blocks , .row.orange-border {
+	margin-top: 1%;
+}
+
+.row.default .field__item a:link, .row.default .field__item a:visited, .row.orange-border .field__item a:link, .row.orange-border .field__item a:visited{
+	color: Black;
+	text-decoration: none;
+	text-align: left;
+}
+
+.row.square-blocks .field__item a:link, .row.square-blocks .field__item a:visited {
+	background-color: #ffffff;
+	color: Black;
+	padding: 82px 0px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	border-style: solid;
+	width: 200px;
+	height: 200px;
+	text-transform: uppercase;
+}
+
+.row.square-blocks .field__item a:hover, .row.square-blocks .field__item a:active {
+  background-color: grey;
+  color: White;
+}
+
+.purple-line {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 2rem;
+  border: 0;
+  border-top: 4px solid rgb(216 115 234);
+}
+
+.field_multi_description.purple-square .multi_description_body {
+    border: 4px solid rgb(216 115 234);
+    min-height: 100px;
+}
+
+.blue-line {
+	margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 4rem;
+    border: 0;
+    border-top: 4px solid rgb(11 230 241);
+}
+
+.orange-line {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 2rem;
+    border: 0;
+    border-top: 4px solid #ff6e07;
+}
+.card-title-desc {
+    min-height: 200px;
+	margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.card-title-desc .field__item {	
+    text-align: left;
+    width: 85%;
+    margin-bottom: 3%;
+}
+
+.purple-border .field__item {
+  border: 4px solid rgb(216 115 234);
+}
+ 
+.purple-border-text-center .field__item {
+  text-align: center;
+  border: 4px solid rgb(216 115 234);
+}
+
+.purple-border-text-center .field__item a,
+.purple-border .field__item a{
+  color: #000;
+}
+
+.purple-border .paragraph__column,
+.purple-border-text-center .paragraph__column {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.region--top {
+  width: 100%;
+  max-width: 100%;
+}
+
+.paragraph--type--title-links-description .more a {
+    text-decoration: underline;
+    color: #000000;
+}

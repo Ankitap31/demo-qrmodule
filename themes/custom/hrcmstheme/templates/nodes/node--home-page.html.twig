@@ -1,0 +1,118 @@
+<div class='container-fluid' id='hpe-online-body'>
+	 <div class='w3-col xs12 m12 main'>
+		<div class='w3-col s12 hpe-row'>
+			<div class='w3-col s12'>
+				<div class='column-count'>
+								 <!-- 15 Row -->
+					<div class='w3-col s12 m2 hpe-col'>
+					<div class='content'>                                               
+								<div>{{ most_used }} </div>
+							</div>
+					</div>
+								 <!-- End 15 Row -->
+								 <!-- Start 37 Row-->
+					<div class='w3-col s12 m4 hpe-col'>
+					{{ employee_management }}
+					</div>
+				<!-- End 37 Row -->
+				 <!-- Start 47 Row -->
+						<div class='w3-col s12 m6 l6 hpe-col'>
+							<div class='content'>											
+								<div class='w3-image-container slick-container-1' data-slick='{"autoplay":true, "autoplaySpeed":3000, "arrows":true,"dots":true}'>
+									 {{ top_homeslide }}													
+								</div>
+							</div>
+						</div>
+						<!-- End 47 Row -->    
+									
+				</div>
+			</div>
+		</div>
+		<div class='w3-col s12 hpe-row'>
+			<div class='w3-col s12'>
+				<div class='column-count'>
+				<div class='w3-col s12 m3 hpe-col'>
+				{{ reports_block }}
+				  </div>
+				<div class='w3-col s12 m3 hpe-col'>
+				{{ hiring_block }}                                           
+				 </div>
+				<div class='w3-col s12 m3 hpe-col'>
+				{{ contigent_workers_block }}                                           
+				 </div>
+				<div class='w3-col s12 m3 hpe-col'>
+				{{ approve_delegate_block }}                                           
+				  </div>
+				</div>
+			</div>
+		</div>
+						
+		<div class='w3-col s12 hpe-row'>
+			<div class='w3-col s12'>
+				<div class='column-count'>
+					<div class='w3-col s12 m3 hpe-col'>
+						<div class='w3-level-1-row-1-box content'>
+							<div class="w3-slate w3-padding">
+							   {% trans %} CONNECT NOW GROUPS {% endtrans %}
+							</div>
+							<div class='w3-panel'>
+							{% set items = simplify_menu('connect-now-groups') %}												
+							<ul class='w3-ul'>
+							  {% for menu_item in items.menu_tree %}
+								<li class="w3-border-0 w3-margin-bottom-8">
+								  <a href="{{ menu_item.url }}" target='_blank'> 
+								  {% trans %} {{ menu_item.text }} {% endtrans %}</a>
+								</li>
+							  {% endfor %}
+							</ul>
+				</div>
+			</div>
+				</div>
+			<div class='w3-col s12 m3 hpe-col'>
+						<div class='w3-level-1-row-1-box content'>
+							<div class="w3-slate w3-padding">RESOURCES</div>
+							<div class='w3-panel'>
+								{% set resources_items = simplify_menu('resources') %}												
+								<ul class='w3-ul'>
+								  {% for resources_menu_item in resources_items.menu_tree %}
+									<li class="w3-border-0 w3-margin-bottom-8">
+									  <a href="{{ resources_menu_item.url }}" target='_blank'>{{ resources_menu_item.text }}</a>
+									</li>
+								  {% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+			<div class='w3-col s12 m3 hpe-col'>
+						<div class='w3-level-1-row-1-box content'>
+							<div class="w3-slate w3-padding">EVENTS</div>
+							<div class='w3-panel'>
+								{% set events_items = simplify_menu('events') %}												
+								<ul class='w3-ul'>
+								  {% for events_menu_item in events_items.menu_tree %}
+									<li class="w3-border-0 w3-margin-bottom-8">
+									  <a href="{{ events_menu_item.url }}" target='_blank'>{{ events_menu_item.text }}</a>
+									</li>
+								  {% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+			<div class='w3-col s12 m3 hpe-col'>
+						<div class='w3-level-1-row-2-box content'>
+							<div class="w3-slate w3-padding">
+								SEARCH HR
+							</div>
+							<div class='w3-col s12'>
+							{{ hrcms_search }}    
+							   
+							</div>
+						</div>
+					</div>
+		  </div>
+		</div>
+	 </div>
+	</div>
+</div>
+		
+			

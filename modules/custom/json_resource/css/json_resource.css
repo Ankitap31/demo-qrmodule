@@ -1,0 +1,8 @@
+.jsoneditor-search .jsoneditor-frame input[type=text] {
+  min-height: auto;
+  background: none;
+}
+
+.json-editor-widget-textarea {
+  display: none;
+}

@@ -1,0 +1,69 @@
+name: HRCMS Custom theme
+type: theme
+description: 'Test theme for learning purpose.'
+# version: VERSION
+# core: 8.x
+base theme: false
+
+libraries:
+ # - hrcmstheme/bootstrap_cdn
+  - hrcmstheme/global-styling
+
+regions:  
+  top_homeslide: 'Home Slide'
+  header: Header  
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'   
+  employee_management: 'EMPLOYEE MANAGEMENT'
+  breadcrumb: Breadcrumb 
+  content: Content
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  reports_block: 'REPORTS BLOCK'
+  hiring_block: 'HIRING BLOCK'
+  contigent_workers_block: 'CONTINGENT WORKERS'
+  approve_delegate_block: 'APPROVE & DELEGATE'
+  most_used: 'Most Used'
+  report_modal: 'Report Modal'
+  myhr_slide : 'MYHR Slide'
+  welcome_hr : 'Welcome HR'
+  spotlight : 'SPOTLIGHT'  
+  hr_calendar: 'HR Calendar'
+  hr_calendar_popup: 'HR Calendar_popup'
+  news_communication: 'NEWS & COMMUNICATIONS'
+  news_communication_modal: 'NEWS & COMMUNICATIONS MODAL'
+  tools_resources: 'TOOLS & RESOURCES'
+  tools_resources_modal: 'TOOLS & RESOURCES MODAL'
+  social_media: 'SOCIAL MEDIA'
+  social_media_modal: 'SOCIAL MEDIA MODAL'  
+  hr_forum_media_modal: 'HR-Forum MODAL'
+  give_feedback: 'Give Feedback'
+  hr_services: 'HR Services'
+  hr_services_modal: 'HR Services MODAL'
+  hr_organizations: 'HR Organizations'
+  hr_organizations_modal: 'HR Organizations Modal'
+  hr_development: 'HR Development'
+  hr_development_modal: 'HR Development Modal'
+  hr_initiatives: 'HR Initiatives'
+  hr_initiatives_modal: 'HR Initiatives Modal'
+  reporting_analytics: 'Reporting & Analytics'
+  reporting_analytics_modal: 'Reporting & Analytics Modal'
+  policies_compliance: 'Policies & Compliance'
+  policies_compliance_modal: 'Policies & Compliance Modal'
+  broken_link_footer: 'Broken link Footer'
+  us_immigration: 'US Immigration'
+  hr_action: 'HR Action'
+  share_story: 'Share-Your-Story'
+  program_breiefing: 'Program-Breiefing-HR'
+  health_campaign: 'Health_Campaign'
+  hr_forum: 'HR Forum' 
+  language_switcher: 'Language Switcher' 
+  hrcms_search: 'HRCMS Search' 
+
+
+
+version: '8.8.1'
+core: '8.x'
+project: 'hrcms'
+datestamp: 1551325396
+

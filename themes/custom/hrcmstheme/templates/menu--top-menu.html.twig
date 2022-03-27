@@ -1,0 +1,19 @@
+{% import _self as menus %}
+
+{#
+  We call a macro which calls itself to render the full tree.
+  @see https://twig.symfony.com/doc/1.x/tags/macro.html
+#}
+{{ menus.menu_links(items, attributes, 0,top-menu) }}
+
+{% macro menu_links(items, attributes, menu_level) %}
+  {% import _self as menus %}
+ 
+    {% for item in items %}
+	{% set menu = item.title|replace(" ", "-") %}
+	
+      <a name='m-{{ loop.index }}' class=' w3-bar-item w3-button w3-text-grey w3-hover-none w3-hover-text-black' href="javascript:void(0)" onclick='modal_open(event);'>{{ item.title }}</a>
+    {% endfor %} 
+ 
+{% endmacro %}
+
