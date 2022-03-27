@@ -1,6 +1,0 @@
-services:
-  json_resource.commands:
-    class: \Drupal\json_resource\Commands\JsonResourceCommands
-    arguments: [ '@json_resource.cli_service' ]
-    tags:
-      - { name: drush.command }

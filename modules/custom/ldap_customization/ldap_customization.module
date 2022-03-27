@@ -1,0 +1,301 @@
+<?php
+
+use Drupal\ldap_query\Controller\QueryController;
+use \Drupal\user\UserInterface;
+use \Drupal\node\NodeInterface;
+use \Drupal\Core\Session\AccountInterface;
+use \Drupal\Core\Access\AccessResult;
+use \Drupal\Core\Form\FormStateInterface;
+use Drupal\taxonomy\Entity\Term;
+
+
+/**
+ * Implements hook_cron().
+ */
+function ldap_customization_cron() {
+  $message = 'Cron run for ldap updation';
+  \Drupal::logger('ldap_customization')->notice($message);
+  
+  $query_id = "all_values_for_hrcms_with_limit";
+  $controller = new QueryController($query_id);
+  $filter = "uid=*";
+  $controller->execute($filter);
+  $cron_data = $controller->getRawResults();
+	foreach ($cron_data as $key => $value) {
+		foreach ($value as $keys => $values){
+			
+			if ($keys == "employeetype" || $keys == "hprole" || $keys == "hpbusinessgroup" || $keys == "hpjobfunction" || 
+			$keys == "hpbusinessregion" || $keys == "hpbusinessregionacronym" || $keys == "c" || $keys == "co" || 
+			$keys == "hpjobfunctioncode" ||$keys == "hpjobfamily" || $keys == "hpjobfamilycode" || 	$keys == "hpbusinessgroupcode" || 
+			$keys == "hpbusinessunit" || $keys == "hpbusinessunitacronym" || $keys == "hporganizationchart" || 
+			$keys == "hporganizationchartacronym" || $keys == "hplocationcode" || $keys == "buildingname" || $keys == "l")  {
+				
+			$cron_employee[$keys] = $values[0];
+			getTid($keys,$values[0]);
+		  }
+		}
+		    
+    }
+		
+}
+function ldap_customization_user_login(UserInterface $account) {
+  $query_id = "test_query";
+  $controller = new QueryController($query_id);
+  $filter = "uid=". $account->getEmail();
+  $controller->execute($filter);
+  $data = $controller->getRawResults();
+  if ($data['count'] >= 1) {
+	\Drupal::logger('ldap_customization')->warning('<pre><code>' . print_r($data[0], TRUE) . '</code></pre>');
+	foreach ($data[0] as $key => $value) {
+	  if (	$key == "hpstartdate" || $key == "employeenumber" || $key == "givenname" || $key == "sn" || $key == "employeetype" || $key == "hprole" || $key == "hpbusinessgroup" || $key == "hpjobfunction" || 
+			$key == "hpbusinessregion" || $key == "hpbusinessregionacronym" || $key == "c" || $key == "co" || 
+			$key == "hpjobfunctioncode" ||$key == "hpjobfamily" || $key == "hpjobfamilycode" || 
+			$key == "hpbusinessgroupcode" || $key == "hpbusinessunit" || 
+			$key == "hpbusinessunitacronym" || $key == "hporganizationchart" || 
+			$key == "hporganizationchartacronym" || $key == "hplocationcode" || $key == "buildingname" || $key == "l")  {
+			$employee[$key] = $value[0];
+		  }		 
+    }
+  }
+  
+  // Assign roles to user according to its level in organization.
+  if (!empty($employee)) {
+    $user = user_load_by_mail($account->getEmail());
+	 
+    if (!empty($user)) {
+		 // Terms saved to user profile.		
+		 
+		 if(!empty($employee['employeetype'])){
+			$user->set('field_employeetype',getTid('employeetype',$employee['employeetype']));
+		 }
+		 if(!empty($employee['employeenumber'])){
+			$user->field_employee_number->value  = $employee['employeenumber'];
+		 }
+		 if(!empty($employee['givenname'])){
+			$user->field_hp->value  = $employee['givenname'];
+		 }
+		 if(!empty($employee['sn'])){
+		  $user->field_last_name->value  = $employee['sn'];
+		 }
+		 if(!empty($employee['hpstartdate'])){
+			$user->field_hpstartdate->value  = $employee['hpstartdate'];
+			$hpstartdate_timestamp = strtotime($employee['hpstartdate']);
+		  $user->field_hpstartdate_timestamp->value  = $hpstartdate_timestamp;
+		 }
+		 if(!empty($employee['hpbusinessgroup'])){
+			$user->set('field_hp_business_group',getTid('hpBusinessGroup',$employee['hpbusinessgroup'])); 
+		 }
+		 if(!empty($employee['l'])){
+			$user->set('field_hp_attr_i',getTid('hp_attr_l',$employee['l'])); 
+		 }
+		  if(!empty($employee['c'])){		 
+			 $user->set('field_hp_country_code',getTid('hpcountrycode',$employee['c']));
+		 }
+		 if(!empty($employee['co'])){
+			$user->set('field_hp_country',getTid('hpcountry',$employee['co']));		
+   
+		 } 
+		  if(!empty($employee['hpbusinessregion'])){
+			$user->set('field_hp_business_region',getTid('hpbusinessregion',$employee['hpbusinessregion'])); 
+		 }
+		 if(!empty($employee['hpbusinessregionacronym'])){
+			$user->set('field_hp_business_region_acronym',getTid('hpbusinessregionacronym',$employee['hpbusinessregionacronym'])); 
+		 }
+		
+		 if(!empty($employee['hpjobfunctioncode'])){
+			$user->set('field_hp_job_function_code',getTid('hpjobfunctioncode',$employee['hpjobfunctioncode'])); 
+		 }
+		 if(!empty($employee['hpjobfunction'])){
+			$user->set('field_hp_jobfunction',getTid('hpjobfunction',$employee['hpjobfunction'])); 
+		 }
+		 if(!empty($employee['hpjobfamily'])){
+			$user->set('field_hp_job_family',getTid('hpjobfamily',$employee['hpjobfamily'])); 
+		 }
+		 if(!empty($employee['hpjobfamilycode'])){
+			$user->set('field_hp_job_family_code',getTid('hpjobfamilycode',$employee['hpjobfamilycode'])); 
+		 }
+		
+		 if(!empty($employee['hprole'])){
+			$user->set('field_hp_role',getTid('hprole',$employee['hprole'])); 
+		 }
+		 
+		 if(!empty($employee['hpbusinessgroupcode'])){
+			$user->set('field_hp_business_group_code',getTid('hpbusinessgroupcode',$employee['hpbusinessgroupcode'])); 
+		 }
+		 if(!empty($employee['hpbusinessunit'])){
+			$user->set('field_hp_business_unit',getTid('hpbusinessunit',$employee['hpbusinessunit'])); 
+		 }
+		 if(!empty($employee['hpbusinessunitacronym'])){
+			$user->set('field_hp_business_unit_acronym',getTid('hpbusinessunitacronym',$employee['hpbusinessunitacronym'])); 
+		 }
+		 if(!empty($employee['hporganizationchart'])){
+			$user->set('field_hp_organization_chart',getTid('hporganizationchart',$employee['hporganizationchart']));
+ 		 }
+		 if(!empty($employee['hporganizationchartacronym'])){
+			$user->set('field_hp_organization_chartacron',getTid('hporganizationchartacronym',$employee['hporganizationchartacronym'])); 
+		 }
+		 if(!empty($employee['hplocationcode'])){
+			$user->set('field_hplocationcode',getTid('hplocationcode',$employee['hplocationcode'])); 
+		 }
+		 if(!empty($employee['buildingname'])){
+			$user->set('field_building_name',getTid('buildingname',$employee['buildingname'])); 
+		 }
+		  $user->save();
+		  
+	  // CWAM Logic to assign roles to user on login.
+	  $contingent_types = array("Accenture Service Provider",
+								"Agency Contractor",
+								"Credentialed Visitor",
+								"DXC Service Provider",
+								"HP Acquisition in Progress",
+								"HPI support from DXC",
+								"Infosys Service Provider",
+								"MFI support from DXC",
+								"Outsourced Service Contractor",
+								"TCS Service Provider",
+								"Wipro Service Provider"
+							);
+	  $employee_types = array("Regular",
+							  "Temporary Employee with Benefits (Fixed Term)",
+							  "Temp Intern (Fixed Term)",
+							  "Temp Apprentice (Fixed Term)"
+						);
+							
+	  if (($employee["hpjobfunction"] == "Human Resources" || $employee["hpbusinessgroup"] == "Human Resources")
+	      && ($employee["hprole"] == "Manager" || $employee["hprole"] == "Functional Manager")) {	
+		
+		$user->addRole('hr_manager');
+        $user->save();
+	  }
+	  else if (($employee["employeetype"] == "Regular") && ($employee["hprole"] == "Manager" || $employee["hprole"] == "Functional Manager")) {
+	    $user->addRole('manager');
+        $user->save();
+	  }
+	  else if (($employee["hpjobfunction"] == "Human Resources" || $employee["hpbusinessgroup"] == "Human Resources")) {
+		$user->addRole('hr_only');
+        $user->save();
+	  }
+	 /* else if (($employee["employeetype"] == "Regular") || ($employee["employeetype"] == "Outsourced Service Contractor")) {
+		$user->addRole('protected');
+		$user->addRole('hr_targeted');		
+        $user->save();
+	  }*/
+	  else if (in_array($employee["employeetype"], $contingent_types)) {
+		$user->addRole('contingent');	
+        $user->save();
+	  }
+	  else if (in_array($employee["employeetype"], $employee_types)) {
+		$user->addRole('employee');
+		$user->save();
+	  }
+	  else {
+		$user->addRole('authenticated');
+		$user->save(); 
+	  }
+	}
+  }
+}
+
+function ldap_customization_node_access(\Drupal\node\NodeInterface $node, $op, \Drupal\Core\Session\AccountInterface $account) {
+	
+  if(isset($node->field_cwam_roles)) {
+      $fv = $node->field_cwam_roles->getValue();
+    }
+  if (!empty($fv)) {
+    if ( $op == "view" ) {
+	  if (\Drupal\user\Entity\User::load($account->id())->hasRole($fv[0]['target_id'])) {
+	    return AccessResult::allowed();
+	  }
+	  else {
+	    // $roleMapping = array("employee" => array("manager", "hr_only", "hr_manager"),
+        //               "hr_manager" => array("manager", "hr_only"),
+        //               "contingent" => array("employee", "manager", "hr_only", "hr_manager")
+		// 			  );
+		$roleMapping = array("employee" => array("manager", "hr_only", "hr_manager"),
+					  "hr_manager" => array("manager", "hr_only"),
+					  "hr_only" => array("hr_manager"),
+					  "manager" => array("hr_manager"),
+                      "contingent" => array("employee", "manager", "hr_only", "hr_manager")
+					  );
+        $isMapAllow = false;
+        $userRoles = \Drupal::currentUser()->getRoles();// GetUserRoles in array.
+        $currentViewAllowed = $fv[0]['target_id'];
+        $checkMapping = isset($roleMapping[$currentViewAllowed]) ? $roleMapping[$currentViewAllowed] : [];
+
+      if($userRoles && $checkMapping) {
+        foreach($userRoles as $userRole) {
+          if(in_array($userRole, $checkMapping)) {
+            $isMapAllow = true;
+        break;
+      }
+    }
+}
+
+if($isMapAllow) {
+   return AccessResult::allowed();
+} else {
+   return AccessResult::forbidden();
+
+}
+	  }
+    }
+    else {
+	  return AccessResult::neutral();
+    }
+  }
+  else {
+	return AccessResult::neutral();
+  }
+}
+
+// Use hook_form_alter.
+// Used to remove unwanted roles from CWAM roles field. 
+
+function ldap_customization_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+	$hrcms_roles = $form['field_cwam_roles']['widget']['#options'] ;
+	if($hrcms_roles){
+		unset($hrcms_roles['administrator']);
+		unset($hrcms_roles['authenticated']);
+		unset($hrcms_roles['anonymous']);
+		unset($hrcms_roles['preview_role']);
+		unset($hrcms_roles['hr_super_user']);
+		unset($hrcms_roles['content_owner']);
+		unset($hrcms_roles['content']);	
+		$form['field_cwam_roles']['widget']['#options'] = $hrcms_roles;
+		
+	}
+	
+}
+ 
+function getTid($vid,$tname){  
+		if($vid == 'l'){
+			$vid == 'hp_attr_l' ;
+		}
+		elseif($vid == 'c'){
+			$vid = 'hpcountrycode';			
+		}
+		elseif($vid == 'co'){
+			$vid = 'hpcountry';	
+		}
+	
+	$query = \Drupal::database()->select('taxonomy_term_field_data', 't');
+	$query->addField('t', 'tid');			
+	$query->addField('t','name');			
+	$query->condition('t.vid', $vid);
+	$query->condition('t.name', $tname);
+	$dada = $query->execute()->fetchField();	
+	if(!empty($dada)){
+		return $dada;
+	}
+	else {
+		$new_term = Term::create(['name' => $tname,'vid' => $vid,])->save();
+		$nquery = \Drupal::database()->select('taxonomy_term_field_data', 't');
+		$nquery->addField('t', 'tid');				
+		$nquery->condition('t.vid', $vid);
+		$nquery->condition('t.name', $tname);
+		$ndada = $query->execute()->fetchField();
+		return $ndada; 
+	}
+	
+}
+

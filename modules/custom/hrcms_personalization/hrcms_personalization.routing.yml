@@ -1,0 +1,28 @@
+hrcms_personalization.update_notification:
+  path: '/user_update_notification'
+  defaults:
+    _controller: '\Drupal\hrcms_personalization\Controller\UpdateUserNotification::callUpdateNotification'
+  requirements:
+    _access: 'TRUE'
+
+hrcms_personalization.getuserprofile_status:
+  path: '/get_userprofile_status'
+  defaults:
+    _controller: '\Drupal\hrcms_personalization\Controller\GetUserprofileStatus::callGetUserprofileStatus'
+  requirements:
+    _access: 'TRUE'
+    
+hrcms_personalization.countryswitcher_redirect:
+  path: '/country_switcher_redirect/{countryid}/{nid}'
+  defaults:
+    _controller: '\Drupal\hrcms_personalization\Controller\CountrySwitcherRedirect::callCountrySwitcherRedirect'
+  requirements:
+    _access: 'TRUE'
+
+hrcms_personalization.getdefaultcountry:
+  path: '/get_default_country/{nid}'
+  defaults:
+    _controller: '\Drupal\hrcms_personalization\Controller\GetDefaultCountry::callGetDefaultCountry'
+  requirements:
+    _access: 'TRUE'
+

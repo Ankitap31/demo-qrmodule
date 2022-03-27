@@ -1,0 +1,3 @@
+administer ldap customization settings:
+  title: 'Administer LDAP Customization'
+  description: 'Users with this permission will be allowed to view ldap customizations'

@@ -1,0 +1,7 @@
+name: LDAP Customization
+type: module
+description: 'Allows to manage LDAP customizations'
+package: Custom
+version: VERSION
+core: 8.x
+configure: ldap_customization_settings

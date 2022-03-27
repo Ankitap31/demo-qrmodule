@@ -1,0 +1,9 @@
+name: HrcmsPersonalization
+type: module
+description: "Common module for personalization related custom code and tasks."
+package: Custom
+core: 8.x
+dependencies:
+  - search_api
+  - views
+  

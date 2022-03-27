@@ -1,0 +1,15 @@
+ldap_customization_settings:
+  path: '/ldap_customization/contents'
+  defaults:
+    _controller: 'Drupal\ldap_customization\Controller\LdapCustomizationController::content'
+    _title: 'LDAP Customizations Controller'
+  requirements:
+    _permission: 'administer ldap customization settings'
+files_customization_settings:
+  path: '/node/{node}/security'
+  defaults:
+    _form: 'Drupal\ldap_customization\Form\SecurityCustomization'
+    _title: 'CWAM'
+  requirements:
+    _permission: 'administer ldap customization settings'
+    node: \d+

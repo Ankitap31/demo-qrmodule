@@ -1,0 +1,105 @@
+<?php
+/**
+ * @file
+ * Module file for personalization.
+ */
+
+use Drupal\Core\Session\AccountInterface;
+use Drupal\search_api\Query\QueryInterface;
+use Drupal\user\Entity\User;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_search_api_query_alter().
+ */
+function hrcms_personalization_search_api_query_alter(QueryInterface $query) {
+  // Load the current user.
+  $userProfile = User::load(\Drupal::currentUser()->id());
+  $field_hp_business_group = $userProfile->get('field_hp_business_group')->getValue();
+  $field_hp_business_region	 = $userProfile->get('field_hp_business_region')->getValue();
+  $field_hp_business_unit = $userProfile->get('field_hp_business_unit')->getValue();
+  $field_hp_country = $userProfile->get('field_hp_country')->getValue();
+  $field_hp_jobfunction = $userProfile->get('field_hp_jobfunction')->getValue();
+  $field_hp_job_family = $userProfile->get('field_hp_job_family')->getValue();
+  $field_hp_role = $userProfile->get('field_hp_role')->getValue();
+  $field_employeetype = $userProfile->get('field_employeetype')->getValue();
+  $field_hp_business_group_code = $userProfile->get('field_hp_business_group_code')->getValue();
+  $field_hp_business_region_acronym = $userProfile->get('field_hp_business_region_acronym')->getValue();
+  $field_hp_business_unit_acronym = $userProfile->get('field_hp_business_unit_acronym')->getValue();
+  $field_hp_job_family_code = $userProfile->get('field_hp_job_family_code')->getValue();
+  $field_hp_job_function_code = $userProfile->get('field_hp_job_function_code')->getValue();
+  $field_hplocationcode = $userProfile->get('field_hplocationcode')->getValue();
+  $field_hp_organization_chart = $userProfile->get('field_hp_organization_chart')->getValue();
+  $field_hp_organization_chartacron = $userProfile->get('field_hp_organization_chartacron')->getValue();
+  $field_hp_attr_i = $userProfile->get('field_hp_attr_i')->getValue();
+  $field_hp_country_code = $userProfile->get('field_hp_country_code')->getValue();
+
+  //print_r($field_value[0]);
+  // Condition on query.
+  $query->addCondition('field_hp_business_group',  $field_hp_business_group[0], '=');
+  $query->addCondition('field_hp_business_region',  $field_hp_business_region[0], '=');
+  $query->addCondition('field_hp_business_unit',  $field_hp_business_unit[0], '=');
+  $query->addCondition('field_hp_country',  $field_hp_country[0], '=');
+  $query->addCondition('field_hp_jobfunction',  $field_hp_jobfunction[0], '=');
+  $query->addCondition('field_hp_job_family',  $field_hp_job_family[0], '=');
+  $query->addCondition('field_hp_role',  $field_hp_role[0], '=');
+  $query->addCondition('field_employeetype',  $field_employeetype[0], '=');
+  $query->addCondition('field_hp_business_group_code',  $field_hp_business_group_code[0], '=');
+  $query->addCondition('field_hp_business_region_acronym',  $field_hp_business_region_acronym[0], '=');
+  $query->addCondition('field_hp_business_unit_acronym',  $field_hp_business_unit_acronym[0], '=');
+  $query->addCondition('field_hp_job_family_code',  $field_hp_job_family_code[0], '=');
+  $query->addCondition('field_hp_job_function_code',  $field_hp_job_function_code[0], '=');
+  $query->addCondition('field_hplocationcode',  $field_hplocationcode[0], '=');
+  $query->addCondition('field_hp_organization_chart',  $field_hp_organization_chart[0], '=');
+  $query->addCondition('field_hp_organization_chartacron',  $field_hp_organization_chartacron[0], '=');
+  $query->addCondition('field_hp_attr_i',  $field_hp_attr_i[0], '=');
+  $query->addCondition('field_hp_country_code',  $field_hp_country_code[0], '=');
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function hrcms_personalization_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  if (($view->id() == 'notifications') || ($view->id() == 'push_notification')) {
+
+    $definition = [
+      'table' => 'node__field_cwam_roles',
+      'field' => 'entity_id',
+      'left_table' => 'node_field_data',
+      'left_field' => 'nid',
+      'operator' => '=',
+    ];
+    $join = Drupal::service('plugin.manager.views.join')->createInstance('standard', $definition);
+    $query->addRelationship('node_field_data', $join, 'node__field_cwam_roles'); 
+    $query->group_operator = 'OR';
+    $roles = \Drupal::currentUser()->getRoles();
+    foreach ($roles as $key => $role) {
+      $query->addWhere('2', 'node__field_cwam_roles.field_cwam_roles_target_id', $role, '=');
+    }   
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function hrcms_personalization_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->bundle() == "hrcms_notification") {
+    $notified_role = $entity->field_cwam_roles->getValue();
+    foreach ($notified_role as $key => $role) {
+      $ids = \Drupal::entityQuery('user')
+      ->condition('status', 1)
+      ->condition('roles', $role)
+      ->execute();
+      $users = User::loadMultiple($ids);    
+      foreach($users as $user){
+        $user->set('field_notification', 1);
+        $user->save();
+      } 
+    
+    }
+  }
+}
+
